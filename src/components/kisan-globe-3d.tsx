@@ -380,9 +380,9 @@ export function KisanGlobe3D({ plots = [], selectedPlotId, onSelectPlot }: Kisan
   }, [plots, selectedPlotId, hoverText, onSelectPlot]);
 
   return (
-    <div className="relative w-full h-[320px] md:h-[400px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-950/20 to-blue-950/25 border border-emerald-500/10 rounded-2xl backdrop-blur-md shadow-2xl">
+    <div className="relative w-full h-[320px] md:h-[400px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-950/20 to-blue-950/25 border border-primary/10 rounded-2xl backdrop-blur-md shadow-2xl">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing" />
-      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-emerald-400 bg-black/40 px-3 py-1.5 rounded-lg border border-emerald-500/20 backdrop-blur-sm z-10">
+      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-primary bg-black/40 px-3 py-1.5 rounded-lg border border-primary/20 backdrop-blur-sm z-10">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
           3D SATELLITE PLOT TRACKER

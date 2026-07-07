@@ -73,9 +73,9 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-emerald-950/20 to-blue-950/25 bg-background">
-      <Card className="max-w-md w-full border-emerald-500/10 shadow-2xl backdrop-blur-md bg-card/95">
+      <Card className="max-w-md w-full border-primary/10 shadow-2xl backdrop-blur-md bg-card/95">
         <CardHeader className="text-center">
-          <div className="mx-auto bg-emerald-500/10 text-emerald-500 p-3 rounded-full w-fit mb-3">
+          <div className="mx-auto bg-primary/10 text-primary p-3 rounded-full w-fit mb-3">
             <KeyRound className="h-8 w-8" />
           </div>
           <CardTitle className="text-2xl font-black tracking-tight">Kisan Portal Login</CardTitle>
@@ -106,7 +106,7 @@ export default function LoginPage() {
                 </p>
               </div>
 
-              <Button type="submit" disabled={sending} className="w-full bg-emerald-600 hover:bg-emerald-700 h-11 text-sm font-bold shadow-lg">
+              <Button type="submit" disabled={sending} className="w-full bg-primary hover:bg-primary/90 h-11 text-sm font-bold shadow-lg">
                 {sending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -150,14 +150,14 @@ export default function LoginPage() {
                   type="button"
                   variant="outline"
                   onClick={() => setStep('phone')}
-                  className="flex-1 border-emerald-500/20 text-emerald-600 hover:bg-emerald-500/5"
+                  className="flex-1 border-primary/20 text-primary hover:bg-primary/5"
                 >
                   Back
                 </Button>
                 <Button
                   type="submit"
                   disabled={verifying}
-                  className="flex-[2] bg-emerald-600 hover:bg-emerald-700 font-bold"
+                  className="flex-[2] bg-primary hover:bg-primary/90 font-bold"
                 >
                   {verifying ? (
                     <>

@@ -398,10 +398,10 @@ export default function FarmerPortalPage() {
       <Header />
       <main className="flex-1 p-4 md:p-6 lg:p-8 space-y-8 max-w-7xl mx-auto w-full">
         {/* Welcome Section */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-emerald-500/10 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-primary/10 pb-6">
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight flex items-center gap-2">
-              <Sprout className="h-8 w-8 text-emerald-500" />
+              <Sprout className="h-8 w-8 text-primary" />
               Smart Farmer Advisory Portal
             </h1>
             <p className="text-muted-foreground mt-1">
@@ -413,7 +413,7 @@ export default function FarmerPortalPage() {
               variant="outline"
               onClick={handleRunAlertChecks}
               disabled={alertEngineRunning}
-              className="border-emerald-500/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/5"
+              className="border-primary/20 text-primary dark:text-primary hover:bg-primary/5"
             >
               {alertEngineRunning ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -429,10 +429,10 @@ export default function FarmerPortalPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* 3D Satellite Map Globe - 7cols */}
           <div className="lg:col-span-7 flex flex-col gap-4">
-            <Card className="overflow-hidden border-emerald-500/10">
+            <Card className="overflow-hidden border-primary/10">
               <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-lg font-bold">
-                  <Globe2 className="h-5 w-5 text-emerald-500" />
+                  <Globe2 className="h-5 w-5 text-primary" />
                   3D Satellite Plot Tracker
                 </CardTitle>
                 <CardDescription>
@@ -455,10 +455,10 @@ export default function FarmerPortalPage() {
             </Card>
 
             {/* Profile Setup Form */}
-            <Card className="border-emerald-500/10">
+            <Card className="border-primary/10">
               <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-lg font-bold">
-                  <User className="h-5 w-5 text-emerald-500" />
+                  <User className="h-5 w-5 text-primary" />
                   Farmer Profile & Notification Preferences
                 </CardTitle>
                 <CardDescription>
@@ -468,7 +468,7 @@ export default function FarmerPortalPage() {
               <CardContent>
                 {profileLoading ? (
                   <div className="flex justify-center py-6">
-                    <Loader2 className="h-6 w-6 animate-spin text-emerald-500" />
+                    <Loader2 className="h-6 w-6 animate-spin text-primary" />
                   </div>
                 ) : (
                   <form onSubmit={handleSaveProfile} className="space-y-4">
@@ -559,7 +559,7 @@ export default function FarmerPortalPage() {
                         </Select>
                       </div>
                     </div>
-                    <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
                       Save Profile & Enable Notifications
                     </Button>
                   </form>
@@ -570,11 +570,11 @@ export default function FarmerPortalPage() {
 
           {/* Plot Registry - 5cols */}
           <div className="lg:col-span-5 flex flex-col gap-4">
-            <Card className="border-emerald-500/10 flex-1 flex flex-col">
+            <Card className="border-primary/10 flex-1 flex flex-col">
               <CardHeader className="pb-3 flex flex-row items-center justify-between space-y-0">
                 <div>
                   <CardTitle className="text-lg font-bold flex items-center gap-2">
-                    <Activity className="h-5 w-5 text-emerald-500" />
+                    <Activity className="h-5 w-5 text-primary" />
                     My Farm Plots
                   </CardTitle>
                   <CardDescription>Register and monitor plots.</CardDescription>
@@ -582,15 +582,15 @@ export default function FarmerPortalPage() {
                 <Button
                   size="sm"
                   onClick={() => setShowAddPlot(!showAddPlot)}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                  className="bg-primary hover:bg-primary/90 text-white"
                 >
                   {showAddPlot ? 'Cancel' : <><Plus className="h-4 w-4 mr-1" /> Add Plot</>}
                 </Button>
               </CardHeader>
               <CardContent className="flex-1 overflow-auto max-h-[500px]">
                 {showAddPlot && (
-                  <form onSubmit={handleAddPlot} className="bg-emerald-500/5 p-4 rounded-xl border border-emerald-500/10 mb-4 space-y-4">
-                    <h3 className="font-bold text-sm text-emerald-800 dark:text-emerald-400">Register New Land Plot</h3>
+                  <form onSubmit={handleAddPlot} className="bg-primary/5 p-4 rounded-xl border border-primary/10 mb-4 space-y-4">
+                    <h3 className="font-bold text-sm text-primary dark:text-primary">Register New Land Plot</h3>
                     <div className="space-y-2">
                       <Label htmlFor="plot-name">Plot Name</Label>
                       <Input
@@ -686,7 +686,7 @@ export default function FarmerPortalPage() {
                         </Select>
                       </div>
                     </div>
-                    <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
                       Register Land Plot
                     </Button>
                   </form>
@@ -694,10 +694,10 @@ export default function FarmerPortalPage() {
 
                 {plotsLoading ? (
                   <div className="flex justify-center py-10">
-                    <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
                   </div>
                 ) : plots.length === 0 ? (
-                  <div className="text-center py-12 border border-dashed border-emerald-500/10 rounded-xl bg-emerald-500/[0.01]">
+                  <div className="text-center py-12 border border-dashed border-primary/10 rounded-xl bg-primary/[0.01]">
                     <Sprout className="h-10 w-10 text-muted-foreground mx-auto mb-2 opacity-55" />
                     <p className="text-sm text-muted-foreground">No plots registered yet.</p>
                     <p className="text-xs text-muted-foreground mt-1">Add a land plot to configure automatic alerts.</p>
@@ -714,8 +714,8 @@ export default function FarmerPortalPage() {
                           onClick={() => setSelectedPlotId(p.id)}
                           className={`p-4 rounded-xl border transition-all cursor-pointer relative group ${
                             isSelected
-                              ? 'bg-emerald-500/10 border-emerald-500/40 shadow-md'
-                              : 'hover:bg-muted/50 border-emerald-500/5'
+                              ? 'bg-primary/10 border-primary/40 shadow-md'
+                              : 'hover:bg-muted/50 border-primary/5'
                           }`}
                         >
                           <div className="flex justify-between items-start">
@@ -776,11 +776,11 @@ export default function FarmerPortalPage() {
         </div>
 
         {/* Section 2: Alerts Center */}
-        <Card className="border-emerald-500/10">
+        <Card className="border-primary/10">
           <CardHeader className="pb-3 flex flex-row items-center justify-between">
             <div>
               <CardTitle className="text-lg font-bold flex items-center gap-2">
-                <Bell className="h-5 w-5 text-emerald-500" />
+                <Bell className="h-5 w-5 text-primary" />
                 Active Farm Alerts ({activeAlertsList.length})
               </CardTitle>
               <CardDescription>
@@ -791,12 +791,12 @@ export default function FarmerPortalPage() {
           <CardContent>
             {alertsLoading ? (
               <div className="flex justify-center py-6">
-                <Loader2 className="h-6 w-6 animate-spin text-emerald-500" />
+                <Loader2 className="h-6 w-6 animate-spin text-primary" />
               </div>
             ) : activeAlertsList.length === 0 ? (
-              <div className="text-center py-8 bg-emerald-500/5 border border-dashed border-emerald-500/10 rounded-xl">
-                <Check className="h-8 w-8 text-emerald-500 mx-auto mb-2" />
-                <p className="font-semibold text-emerald-800 dark:text-emerald-400">All plots are healthy!</p>
+              <div className="text-center py-8 bg-primary/5 border border-dashed border-primary/10 rounded-xl">
+                <Check className="h-8 w-8 text-primary mx-auto mb-2" />
+                <p className="font-semibold text-primary dark:text-primary">All plots are healthy!</p>
                 <p className="text-xs text-muted-foreground mt-1">No alerts active. Click &quot;Scan Soil &amp; Weather Conditions&quot; to refresh.</p>
               </div>
             ) : (
@@ -841,7 +841,7 @@ export default function FarmerPortalPage() {
                     </div>
                     <Button
                       onClick={() => handleResolveAlert(a.id)}
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white self-end md:self-auto shrink-0 size-sm text-xs"
+                      className="bg-primary hover:bg-primary/90 text-white self-end md:self-auto shrink-0 size-sm text-xs"
                       size="sm"
                     >
                       Resolve & Clear Alert
@@ -866,10 +866,10 @@ export default function FarmerPortalPage() {
 
           {/* AI Leaf Diagnostic Camera Tab */}
           <TabsContent value="pest" className="space-y-4">
-            <Card className="border-emerald-500/10">
+            <Card className="border-primary/10">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-bold">
-                  <Sparkles className="h-5 w-5 text-emerald-500 animate-pulse" />
+                  <Sparkles className="h-5 w-5 text-primary animate-pulse" />
                   AI Plant Pathology Leaf Scanner
                 </CardTitle>
                 <CardDescription>
@@ -881,7 +881,7 @@ export default function FarmerPortalPage() {
                   {/* File Upload / Image area - 5cols */}
                   <div className="md:col-span-5 flex flex-col gap-4">
                     <Label className="text-sm font-semibold">Step 1: Upload leaf photograph</Label>
-                    <div className="border-2 border-dashed border-emerald-500/10 rounded-2xl flex flex-col items-center justify-center p-6 h-[260px] bg-emerald-500/[0.01] hover:bg-emerald-500/[0.02] relative overflow-hidden transition-colors">
+                    <div className="border-2 border-dashed border-primary/10 rounded-2xl flex flex-col items-center justify-center p-6 h-[260px] bg-primary/[0.01] hover:bg-primary/[0.02] relative overflow-hidden transition-colors">
                       {leafImage ? (
                         <>
                           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -893,7 +893,7 @@ export default function FarmerPortalPage() {
                           <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                             <Label
                               htmlFor="leaf-upload"
-                              className="cursor-pointer bg-white text-emerald-700 px-4 py-2 rounded-xl text-xs font-bold shadow-lg flex items-center gap-1.5"
+                              className="cursor-pointer bg-white text-primary px-4 py-2 rounded-xl text-xs font-bold shadow-lg flex items-center gap-1.5"
                             >
                               <Upload className="h-3.5 w-3.5" /> Replace Photo
                             </Label>
@@ -901,7 +901,7 @@ export default function FarmerPortalPage() {
                         </>
                       ) : (
                         <div className="text-center space-y-3">
-                          <div className="bg-emerald-500/10 text-emerald-600 p-3 rounded-full w-fit mx-auto">
+                          <div className="bg-primary/10 text-primary p-3 rounded-full w-fit mx-auto">
                             <Upload className="h-6 w-6" />
                           </div>
                           <div>
@@ -910,7 +910,7 @@ export default function FarmerPortalPage() {
                           </div>
                           <Label
                             htmlFor="leaf-upload"
-                            className="cursor-pointer inline-flex bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow transition-colors"
+                            className="cursor-pointer inline-flex bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-xl text-xs font-bold shadow transition-colors"
                           >
                             Browse Device
                           </Label>
@@ -972,7 +972,7 @@ export default function FarmerPortalPage() {
                     <Button
                       onClick={handleAnalyzeLeaf}
                       disabled={aiLoading || !leafImage}
-                      className="w-full bg-emerald-600 hover:bg-emerald-700 h-12 text-base font-bold shadow-lg"
+                      className="w-full bg-primary hover:bg-primary/90 h-12 text-base font-bold shadow-lg"
                     >
                       {aiLoading ? (
                         <>
@@ -987,9 +987,9 @@ export default function FarmerPortalPage() {
                       )}
                     </Button>
 
-                    <Alert className="bg-emerald-500/[0.02] border-emerald-500/10">
-                      <Camera className="h-4 w-4 text-emerald-500" />
-                      <AlertTitle className="text-xs font-bold text-emerald-800 dark:text-emerald-400">Pathology Tip</AlertTitle>
+                    <Alert className="bg-primary/[0.02] border-primary/10">
+                      <Camera className="h-4 w-4 text-primary" />
+                      <AlertTitle className="text-xs font-bold text-primary dark:text-primary">Pathology Tip</AlertTitle>
                       <AlertDescription className="text-xs">
                         Ensure the photo has clear focus on the leaf lesion or infestation. Avoid shadow gradients and extreme glares for high classification accuracy.
                       </AlertDescription>
@@ -999,8 +999,8 @@ export default function FarmerPortalPage() {
 
                 {/* AI Scanning progress mockup */}
                 {aiLoading && (
-                  <div className="p-6 text-center space-y-3 bg-emerald-500/[0.02] border border-emerald-500/10 rounded-2xl animate-pulse">
-                    <Loader2 className="h-8 w-8 animate-spin text-emerald-500 mx-auto" />
+                  <div className="p-6 text-center space-y-3 bg-primary/[0.02] border border-primary/10 rounded-2xl animate-pulse">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
                     <p className="font-semibold text-sm">Uploading and analyzing plant tissue structure...</p>
                     <p className="text-xs text-muted-foreground">Running molecular anomaly classification via Gemini models</p>
                   </div>
@@ -1008,11 +1008,11 @@ export default function FarmerPortalPage() {
 
                 {/* Diagnostic Results report */}
                 {diagnosisResult && (
-                  <div className="border border-emerald-500/20 bg-emerald-500/[0.02] rounded-2xl p-6 space-y-6">
-                    <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-emerald-500/10 pb-4">
+                  <div className="border border-primary/20 bg-primary/[0.02] rounded-2xl p-6 space-y-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-primary/10 pb-4">
                       <div>
                         <span className="text-xs uppercase font-mono tracking-wider text-muted-foreground">AI Diagnosis Report</span>
-                        <h3 className="text-2xl font-black text-emerald-800 dark:text-emerald-400 mt-1">
+                        <h3 className="text-2xl font-black text-primary dark:text-primary mt-1">
                           {diagnosisResult.detectedIssue}
                         </h3>
                       </div>
@@ -1020,7 +1020,7 @@ export default function FarmerPortalPage() {
                         <Badge
                           className={`text-xs uppercase font-mono px-3 py-1 ${
                             diagnosisResult.category === 'none'
-                              ? 'bg-emerald-600'
+                              ? 'bg-primary'
                               : diagnosisResult.category === 'nutrient_deficiency'
                               ? 'bg-blue-600'
                               : 'bg-red-600'
@@ -1043,8 +1043,8 @@ export default function FarmerPortalPage() {
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                        <div className="bg-emerald-500/[0.03] border border-emerald-500/10 p-4 rounded-xl space-y-2">
-                          <h4 className="font-bold text-xs text-emerald-800 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <div className="bg-primary/[0.03] border border-primary/10 p-4 rounded-xl space-y-2">
+                          <h4 className="font-bold text-xs text-primary dark:text-primary uppercase tracking-wider flex items-center gap-1.5">
                             <Sprout className="h-4 w-4" /> Organic / Biological Measures
                           </h4>
                           <p className="text-xs text-muted-foreground leading-relaxed">
@@ -1061,9 +1061,9 @@ export default function FarmerPortalPage() {
                         </div>
                       </div>
 
-                      <div className="pt-2 border-t border-emerald-500/10">
+                      <div className="pt-2 border-t border-primary/10">
                         <h4 className="font-bold text-sm text-foreground uppercase tracking-wider flex items-center gap-1.5">
-                          <Calendar className="h-4 w-4 text-emerald-500" /> Long-Term Prevention Practices
+                          <Calendar className="h-4 w-4 text-primary" /> Long-Term Prevention Practices
                         </h4>
                         <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                           {diagnosisResult.prevention}
@@ -1078,11 +1078,11 @@ export default function FarmerPortalPage() {
 
           {/* Mandi Commodity Price Tab */}
           <TabsContent value="mandi" className="space-y-4">
-            <Card className="border-emerald-500/10">
+            <Card className="border-primary/10">
               <CardHeader className="pb-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                   <CardTitle className="flex items-center gap-2 text-lg font-bold">
-                    <Coins className="h-5 w-5 text-emerald-500" />
+                    <Coins className="h-5 w-5 text-primary" />
                     Mandi Market Commodity Price Index
                   </CardTitle>
                   <CardDescription>
@@ -1108,14 +1108,14 @@ export default function FarmerPortalPage() {
               <CardContent>
                 {mandiLoading ? (
                   <div className="flex justify-center py-10">
-                    <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
                   </div>
                 ) : mandiPrices.length === 0 ? (
                   <p className="text-center py-6 text-muted-foreground text-sm">No price records found.</p>
                 ) : (
-                  <div className="overflow-x-auto rounded-xl border border-emerald-500/10 bg-emerald-500/[0.005]">
+                  <div className="overflow-x-auto rounded-xl border border-primary/10 bg-primary/[0.005]">
                     <Table>
-                      <TableHeader className="bg-emerald-500/5">
+                      <TableHeader className="bg-primary/5">
                         <TableRow>
                           <TableHead className="font-bold">Mandi Name</TableHead>
                           <TableHead className="font-bold">Region (State/District)</TableHead>
@@ -1133,7 +1133,7 @@ export default function FarmerPortalPage() {
                               <TableCell className="font-bold">{m.mandiName}</TableCell>
                               <TableCell>
                                 <span className="flex items-center gap-1">
-                                  <MapPin className="h-3 w-3 text-emerald-500" />
+                                  <MapPin className="h-3 w-3 text-primary" />
                                   {m.state}, {m.district}
                                 </span>
                               </TableCell>
@@ -1146,7 +1146,7 @@ export default function FarmerPortalPage() {
                                 <span className="flex items-center justify-end gap-1.5 text-foreground text-sm">
                                   ₹{m.modalPrice.toLocaleString()}
                                   {isUp ? (
-                                    <ArrowUpRight className="h-4 w-4 text-emerald-600 shrink-0" />
+                                    <ArrowUpRight className="h-4 w-4 text-primary shrink-0" />
                                   ) : (
                                     <ArrowDownRight className="h-4 w-4 text-amber-600 shrink-0" />
                                   )}

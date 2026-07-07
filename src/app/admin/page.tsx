@@ -48,7 +48,7 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -74,7 +74,7 @@ export default function AdminDashboard() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-border pb-4 gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-black tracking-tight flex items-center gap-2">
-              <Activity className="h-7 w-7 text-emerald-500" />
+              <Activity className="h-7 w-7 text-primary" />
               Advisory Analytics
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
@@ -84,7 +84,7 @@ export default function AdminDashboard() {
           <Button
             variant="outline"
             onClick={() => router.push('/')}
-            className="border-emerald-500/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/5"
+            className="border-primary/20 text-primary dark:text-primary hover:bg-primary/5"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Farmer Portal
@@ -96,7 +96,7 @@ export default function AdminDashboard() {
           <Card className="border-border shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-semibold">Registered Farmers</CardTitle>
-              <Users className="h-4 w-4 text-emerald-500" />
+              <Users className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{metrics.totalFarmers}</div>
@@ -107,7 +107,7 @@ export default function AdminDashboard() {
           <Card className="border-border shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-semibold">Active Land Plots</CardTitle>
-              <Grid className="h-4 w-4 text-emerald-500" />
+              <Grid className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{metrics.totalPlots}</div>
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
           <Card className="border-border shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-semibold">Alerts (24h / 7d)</CardTitle>
-              <BellRing className="h-4 w-4 text-emerald-500" />
+              <BellRing className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
@@ -131,7 +131,7 @@ export default function AdminDashboard() {
           <Card className="border-border shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-semibold">Notification Success</CardTitle>
-              <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+              <CheckCircle2 className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{metrics.notificationSuccessRate.toFixed(1)}%</div>
@@ -178,8 +178,8 @@ export default function AdminDashboard() {
                           <span className="flex items-center gap-1.5">
                             {log.status === 'sent' ? (
                               <>
-                                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                                <Badge variant="outline" className="border-emerald-500/20 text-emerald-600 bg-emerald-500/5 text-[10px]">
+                                <CheckCircle2 className="h-4 w-4 text-primary" />
+                                <Badge variant="outline" className="border-primary/20 text-primary bg-primary/5 text-[10px]">
                                   SUCCESS
                                 </Badge>
                               </>

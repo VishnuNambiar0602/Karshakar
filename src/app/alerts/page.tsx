@@ -144,7 +144,7 @@ export default function AlertsPage() {
   if (!profileChecked) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -153,10 +153,10 @@ export default function AlertsPage() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1 p-4 md:p-6 lg:p-8 max-w-5xl mx-auto w-full space-y-6">
-        <div className="flex justify-between items-center border-b border-emerald-500/10 pb-4">
+        <div className="flex justify-between items-center border-b border-primary/10 pb-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-black tracking-tight flex items-center gap-2">
-              <Bell className="h-7 w-7 text-emerald-500" />
+              <Bell className="h-7 w-7 text-primary" />
               Alert Center
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
@@ -167,7 +167,7 @@ export default function AlertsPage() {
             variant="outline"
             onClick={handleRunAlertChecks}
             disabled={checking}
-            className="border-emerald-500/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/5"
+            className="border-primary/20 text-primary dark:text-primary hover:bg-primary/5"
           >
             {checking ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -179,10 +179,10 @@ export default function AlertsPage() {
         </div>
 
         {/* Active Alerts */}
-        <Card className="border-emerald-500/10 shadow-lg">
+        <Card className="border-primary/10 shadow-lg">
           <CardHeader>
             <CardTitle className="text-lg font-bold flex items-center gap-2">
-              <BellRing className="h-5 w-5 text-emerald-500" />
+              <BellRing className="h-5 w-5 text-primary" />
               Active Warnings ({activeAlerts.length})
             </CardTitle>
             <CardDescription>Urgent conditions requiring attention or irrigation changes.</CardDescription>
@@ -190,12 +190,12 @@ export default function AlertsPage() {
           <CardContent className="space-y-4">
             {loading ? (
               <div className="flex justify-center py-6">
-                <Loader2 className="h-6 w-6 animate-spin text-emerald-500" />
+                <Loader2 className="h-6 w-6 animate-spin text-primary" />
               </div>
             ) : activeAlerts.length === 0 ? (
-              <div className="text-center py-10 bg-emerald-500/5 border border-dashed border-emerald-500/10 rounded-xl">
-                <Check className="h-8 w-8 text-emerald-500 mx-auto mb-2" />
-                <p className="font-semibold text-emerald-800 dark:text-emerald-400">All plots are stable!</p>
+              <div className="text-center py-10 bg-primary/5 border border-dashed border-primary/10 rounded-xl">
+                <Check className="h-8 w-8 text-primary mx-auto mb-2" />
+                <p className="font-semibold text-primary dark:text-primary">All plots are stable!</p>
                 <p className="text-xs text-muted-foreground mt-1">No active alerts. Click &quot;Scan Weather &amp; Soil&quot; to refresh.</p>
               </div>
             ) : (
@@ -249,7 +249,7 @@ export default function AlertsPage() {
                                 variant="outline"
                                 className={`text-[9px] uppercase font-mono px-1.5 py-0 ${
                                   l.status === 'sent'
-                                    ? 'border-emerald-500/30 text-emerald-600 dark:text-emerald-400 bg-emerald-500/5'
+                                    ? 'border-primary/30 text-primary dark:text-primary bg-primary/5'
                                     : 'border-red-500/30 text-red-600 dark:text-red-400 bg-red-500/5'
                                 }`}
                               >
@@ -266,10 +266,10 @@ export default function AlertsPage() {
                       variant="outline"
                       size="sm"
                       onClick={() => handleTextToSpeech(a)}
-                      className="border-emerald-500/10 text-emerald-600 hover:bg-emerald-500/5"
+                      className="border-primary/10 text-primary hover:bg-primary/5"
                     >
                       {playingAlertId === a.id ? (
-                        <Loader2 className="h-4 w-4 animate-spin text-emerald-500" />
+                        <Loader2 className="h-4 w-4 animate-spin text-primary" />
                       ) : (
                         <Volume2 className="h-4 w-4" />
                       )}
@@ -277,7 +277,7 @@ export default function AlertsPage() {
                     <Button
                       size="sm"
                       onClick={() => handleResolveAlert(a.id)}
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                      className="bg-primary hover:bg-primary/90 text-white"
                     >
                       Clear Warning
                     </Button>
@@ -290,7 +290,7 @@ export default function AlertsPage() {
 
         {/* Resolved Alerts (Archive) */}
         {resolvedAlerts.length > 0 && (
-          <Card className="border-emerald-500/10 opacity-70">
+          <Card className="border-primary/10 opacity-70">
             <CardHeader className="pb-2">
               <CardTitle className="text-base font-bold flex items-center gap-2">
                 <Info className="h-4 w-4 text-muted-foreground" />

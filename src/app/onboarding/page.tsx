@@ -68,7 +68,7 @@ export default function OnboardingPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-10 w-10 animate-spin text-emerald-500" />
+          <Loader2 className="h-10 w-10 animate-spin text-primary" />
           <p className="text-sm text-muted-foreground">Checking registration status...</p>
         </div>
       </div>
@@ -77,9 +77,9 @@ export default function OnboardingPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-emerald-950/20 to-blue-950/25 bg-background">
-      <Card className="max-w-md w-full border-emerald-500/10 shadow-2xl backdrop-blur-md bg-card/95">
+      <Card className="max-w-md w-full border-primary/10 shadow-2xl backdrop-blur-md bg-card/95">
         <CardHeader className="text-center">
-          <div className="mx-auto bg-emerald-500/10 text-emerald-500 p-3 rounded-full w-fit mb-3">
+          <div className="mx-auto bg-primary/10 text-primary p-3 rounded-full w-fit mb-3">
             <Sprout className="h-8 w-8" />
           </div>
           <CardTitle className="text-2xl font-black tracking-tight text-foreground">Welcome to Kisan Alert</CardTitle>
@@ -179,7 +179,7 @@ export default function OnboardingPage() {
               </Select>
             </div>
 
-            <Button type="submit" disabled={saving} className="w-full bg-emerald-600 hover:bg-emerald-700 mt-6">
+            <Button type="submit" disabled={saving} className="w-full bg-primary hover:bg-primary/90 mt-6">
               {saving ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

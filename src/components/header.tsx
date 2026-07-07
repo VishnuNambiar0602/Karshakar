@@ -65,7 +65,7 @@ export function Header() {
               asChild
               className={cn(
                 buttonLinkClass,
-                pathname === item.href && "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold"
+                pathname === item.href && "bg-primary/10 text-primary dark:text-primary font-bold"
               )}
             >
               <Link href={item.href}>
@@ -102,7 +102,7 @@ export function Header() {
                                 href={item.href}
                                 className={cn(
                                   "flex items-center gap-2 text-lg font-medium",
-                                  pathname === item.href && "text-emerald-600 dark:text-emerald-400 font-bold"
+                                  pathname === item.href && "text-primary dark:text-primary font-bold"
                                 )}
                               >
                                 <item.icon className="h-5 w-5" /> {t(item.labelKey) || item.fallback}

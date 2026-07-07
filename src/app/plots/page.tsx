@@ -178,7 +178,7 @@ export default function PlotsPage() {
   if (!profileChecked) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -187,10 +187,10 @@ export default function PlotsPage() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1 p-4 md:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
-        <div className="flex justify-between items-center border-b border-emerald-500/10 pb-4">
+        <div className="flex justify-between items-center border-b border-primary/10 pb-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-black tracking-tight flex items-center gap-2">
-              <Sprout className="h-7 w-7 text-emerald-500" />
+              <Sprout className="h-7 w-7 text-primary" />
               Manage Land Plots
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
@@ -199,7 +199,7 @@ export default function PlotsPage() {
           </div>
           <Button
             onClick={() => setShowAddForm(!showAddForm)}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white"
+            className="bg-primary hover:bg-primary/90 text-white"
           >
             {showAddForm ? 'Cancel' : <><Plus className="h-4 w-4 mr-1.5" /> Register Plot</>}
           </Button>
@@ -208,10 +208,10 @@ export default function PlotsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Column: 3D Map Globe (7 cols) */}
           <div className="lg:col-span-7 flex flex-col gap-4">
-            <Card className="overflow-hidden border-emerald-500/10 shadow-lg">
+            <Card className="overflow-hidden border-primary/10 shadow-lg">
               <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-lg font-bold">
-                  <Globe2 className="h-5 w-5 text-emerald-500" />
+                  <Globe2 className="h-5 w-5 text-primary" />
                   3D Satellite Plot Tracker
                 </CardTitle>
                 <CardDescription>
@@ -237,9 +237,9 @@ export default function PlotsPage() {
           {/* Right Column: Add Form / Plot List (5 cols) */}
           <div className="lg:col-span-5 flex flex-col gap-4">
             {showAddForm && (
-              <Card className="border-emerald-500/10 shadow-lg bg-emerald-500/[0.01]">
+              <Card className="border-primary/10 shadow-lg bg-primary/[0.01]">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-bold text-emerald-800 dark:text-emerald-400">Add New Land Plot</CardTitle>
+                  <CardTitle className="text-sm font-bold text-primary dark:text-primary">Add New Land Plot</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
@@ -356,7 +356,7 @@ export default function PlotsPage() {
                       </div>
                     </div>
 
-                    <Button type="submit" disabled={adding} className="w-full bg-emerald-600 hover:bg-emerald-700">
+                    <Button type="submit" disabled={adding} className="w-full bg-primary hover:bg-primary/90">
                       {adding ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
                       Register Land Plot
                     </Button>
@@ -365,7 +365,7 @@ export default function PlotsPage() {
               </Card>
             )}
 
-            <Card className="border-emerald-500/10 shadow-lg flex-1 overflow-auto max-h-[550px]">
+            <Card className="border-primary/10 shadow-lg flex-1 overflow-auto max-h-[550px]">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg font-bold">Registered Plots</CardTitle>
                 <CardDescription>Select a plot to see coordinate details.</CardDescription>
@@ -373,10 +373,10 @@ export default function PlotsPage() {
               <CardContent className="space-y-3">
                 {loading ? (
                   <div className="flex justify-center py-8">
-                    <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
                   </div>
                 ) : plots.length === 0 ? (
-                  <div className="text-center py-10 border border-dashed border-emerald-500/10 rounded-xl bg-emerald-500/[0.01]">
+                  <div className="text-center py-10 border border-dashed border-primary/10 rounded-xl bg-primary/[0.01]">
                     <Sprout className="h-8 w-8 text-muted-foreground mx-auto mb-2 opacity-50" />
                     <p className="text-sm text-muted-foreground">No plots registered yet.</p>
                   </div>
@@ -390,8 +390,8 @@ export default function PlotsPage() {
                         onClick={() => setSelectedPlotId(p.id)}
                         className={`p-4 rounded-xl border transition-all cursor-pointer relative group ${
                           isSelected
-                            ? 'bg-emerald-500/10 border-emerald-500/40 shadow-sm'
-                            : 'hover:bg-muted/50 border-emerald-500/5'
+                            ? 'bg-primary/10 border-primary/40 shadow-sm'
+                            : 'hover:bg-muted/50 border-primary/5'
                         }`}
                       >
                         <div className="flex justify-between items-start">
@@ -406,8 +406,8 @@ export default function PlotsPage() {
                               {p.cropType} • {p.area} Acres
                             </p>
                             <div className="text-[11px] text-muted-foreground font-mono flex gap-3 pt-1">
-                              <span className="flex items-center gap-0.5"><MapPin className="h-3 w-3 text-emerald-500" /> {p.latitude.toFixed(4)}°</span>
-                              <span className="flex items-center gap-0.5"><Calendar className="h-3 w-3 text-emerald-500" /> {p.sowingDate}</span>
+                              <span className="flex items-center gap-0.5"><MapPin className="h-3 w-3 text-primary" /> {p.latitude.toFixed(4)}°</span>
+                              <span className="flex items-center gap-0.5"><Calendar className="h-3 w-3 text-primary" /> {p.sowingDate}</span>
                             </div>
                           </div>
                           <Button
