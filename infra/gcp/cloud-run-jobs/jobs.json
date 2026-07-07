@@ -1,0 +1,36 @@
+{
+  "jobs": [
+    {
+      "name": "ei-preprocess-job",
+      "image": "gcr.io/$PROJECT_ID/ei-preprocess:latest",
+      "cpu": "2",
+      "memory": "4Gi",
+      "timeoutSeconds": 3600,
+      "maxRetries": 2
+    },
+    {
+      "name": "ei-train-job",
+      "image": "gcr.io/$PROJECT_ID/ei-train:latest",
+      "cpu": "4",
+      "memory": "16Gi",
+      "timeoutSeconds": 7200,
+      "maxRetries": 2
+    },
+    {
+      "name": "ei-inference-job",
+      "image": "gcr.io/$PROJECT_ID/ei-inference:latest",
+      "cpu": "2",
+      "memory": "8Gi",
+      "timeoutSeconds": 1800,
+      "maxRetries": 2
+    },
+    {
+      "name": "ei-promote-job",
+      "image": "gcr.io/$PROJECT_ID/ei-promote:latest",
+      "cpu": "1",
+      "memory": "1Gi",
+      "timeoutSeconds": 600,
+      "maxRetries": 1
+    }
+  ]
+}

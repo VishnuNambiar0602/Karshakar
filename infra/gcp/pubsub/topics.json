@@ -1,0 +1,35 @@
+{
+  "topics": [
+    "earth-insights.pipeline.preprocess",
+    "earth-insights.pipeline.train",
+    "earth-insights.pipeline.inference",
+    "earth-insights.pipeline.promote",
+    "earth-insights.pipeline.dlq"
+  ],
+  "subscriptions": [
+    {
+      "name": "earth-insights.pipeline.preprocess.sub",
+      "topic": "earth-insights.pipeline.preprocess",
+      "deadLetterTopic": "earth-insights.pipeline.dlq",
+      "maxDeliveryAttempts": 10
+    },
+    {
+      "name": "earth-insights.pipeline.train.sub",
+      "topic": "earth-insights.pipeline.train",
+      "deadLetterTopic": "earth-insights.pipeline.dlq",
+      "maxDeliveryAttempts": 10
+    },
+    {
+      "name": "earth-insights.pipeline.inference.sub",
+      "topic": "earth-insights.pipeline.inference",
+      "deadLetterTopic": "earth-insights.pipeline.dlq",
+      "maxDeliveryAttempts": 10
+    },
+    {
+      "name": "earth-insights.pipeline.promote.sub",
+      "topic": "earth-insights.pipeline.promote",
+      "deadLetterTopic": "earth-insights.pipeline.dlq",
+      "maxDeliveryAttempts": 10
+    }
+  ]
+}

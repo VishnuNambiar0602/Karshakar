@@ -1,0 +1,31 @@
+{
+  "alertPolicies": [
+    {
+      "displayName": "Pipeline Error Rate",
+      "condition": "custom.googleapis.com/pipeline/error_rate > 0.05",
+      "severity": "CRITICAL",
+      "notificationChannels": ["pagerduty"]
+    },
+    {
+      "displayName": "Pipeline Latency P95",
+      "condition": "custom.googleapis.com/pipeline/p95_duration_seconds > 1800",
+      "severity": "WARNING",
+      "notificationChannels": ["slack"]
+    },
+    {
+      "displayName": "DLQ Message Spike",
+      "condition": "custom.googleapis.com/pipeline/dlq_count > 10",
+      "severity": "CRITICAL",
+      "notificationChannels": ["email"]
+    }
+  ],
+  "dashboard": {
+    "name": "earth-insights-serverless",
+    "widgets": [
+      "pipeline_success_rate",
+      "stage_duration",
+      "dlq_count",
+      "cost_forecast"
+    ]
+  }
+}

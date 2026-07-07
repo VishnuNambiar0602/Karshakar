@@ -1,0 +1,34 @@
+{
+  "modelId": "unet-landcover-v1",
+  "version": "phase2-v1",
+  "createdAt": "2026-03-10T16:54:12.400Z",
+  "datasetVersion": "phase2-dataset-v1",
+  "configHash": "0656eb6d18f895eb00f3879de04e8c56d4b0a8a94d5a30d198231f115375de52",
+  "encoderDepth": 4,
+  "numClasses": 4,
+  "classNames": [
+    "other",
+    "vegetation",
+    "builtUp",
+    "water"
+  ],
+  "validationMetrics": {
+    "mIoU": 0.8887208656207107,
+    "pixelAccuracy": 0.9410807291666666,
+    "perClass": {
+      "iou": {
+        "0": 0.8916256157635468,
+        "1": 0.8903940886699507,
+        "2": 0.8856088560885609,
+        "3": 0.8872549019607843
+      },
+      "dice": {
+        "0": 0.9427083333333334,
+        "1": 0.9420195439739414,
+        "2": 0.9393346379647749,
+        "3": 0.9402597402597402
+      }
+    }
+  },
+  "inferenceSchemaVersion": "segmentation-inference-v1"
+}

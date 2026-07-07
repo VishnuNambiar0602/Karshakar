@@ -1,0 +1,17 @@
+{
+  "name": "Kisan Alert: Farmer Advisory & Alerts",
+  "short_name": "KisanAlert",
+  "description": "Farmer-first satellite, weather and soil moisture advisory with automated SMS and WhatsApp alerting.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#064e3b",
+  "theme_color": "#059669",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

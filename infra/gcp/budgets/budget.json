@@ -1,0 +1,22 @@
+{
+  "budget": {
+    "displayName": "earth-insights-mlops-budget",
+    "amountUsd": 1200,
+    "alertThresholdRules": [
+      { "thresholdPercent": 0.5 },
+      { "thresholdPercent": 0.8 },
+      { "thresholdPercent": 1.0 }
+    ],
+    "allUpdatesRule": {
+      "monitoringNotificationChannels": ["slack", "email"],
+      "disableDefaultIamRecipients": true
+    }
+  },
+  "retention": {
+    "gcsLifecycleDays": 30,
+    "logRetentionDays": 30
+  },
+  "quotas": {
+    "maxDailyPipelineRuns": 6
+  }
+}

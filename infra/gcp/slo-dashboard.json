@@ -1,0 +1,20 @@
+{
+  "name": "earth-insights-slo-dashboard",
+  "widgets": [
+    {
+      "title": "Server Action p95 Latency",
+      "metric": "custom.googleapis.com/earth_insights/action_latency_p95",
+      "threshold": 1500
+    },
+    {
+      "title": "Action Error Rate",
+      "metric": "custom.googleapis.com/earth_insights/action_error_rate",
+      "threshold": 0.01
+    },
+    {
+      "title": "Batch Job Success Rate",
+      "metric": "custom.googleapis.com/earth_insights/job_success_rate",
+      "threshold": 0.98
+    }
+  ]
+}
