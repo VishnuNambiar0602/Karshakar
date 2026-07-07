@@ -1,4 +1,3 @@
-
 {
     "header.title": "ଆର୍ଥ ଇନସାଇଟ୍ସ",
     "header.features": "ବୈଶିଷ୍ଟ୍ୟଗୁଡିକ",
@@ -297,5 +296,17 @@
     "payment.netbanking.select": "ଆପଣଙ୍କ ବ୍ୟାଙ୍କ ବାଛନ୍ତୁ",
     "payment.netbanking.selectPlaceholder": "ଏକ ବ୍ୟାଙ୍କ ବାଛନ୍ତୁ",
     "payment.netbanking.note": "ଦେୟ ସମਾਪ୍ਤ କରିବାକୁ ଆପଣଙ୍କୁ ଆପଣଙ୍କ ବ୍ୟାଙ୍କର ୱେବସାଇଟକୁ ਪੁਨଃਨਿਰਦੇਸ਼ିତ କରାଯିବ।",
-    "dashboard.monitoring.pass.in": "ଭିତରେ"
+    "dashboard.monitoring.pass.in": "ଭିତରେ",
+    "header.farmer": "Farmer Portal",
+    "header.home": "Home",
+    "header.plots": "Plots",
+    "header.alerts": "Alerts",
+    "header.pestCheck": "Pest Diagnostics",
+    "dashboard.insight.title": "AI Change Analysis",
+    "dashboard.insight.confidence": "Confidence Score",
+    "dashboard.insight.action": "Recommended Action",
+    "dashboard.insight.classification.Normal": "Normal",
+    "dashboard.insight.classification.Transitional": "Transitional",
+    "dashboard.insight.classification.Concerning": "Concerning",
+    "dashboard.insight.classification.Critical": "Critical"
 }

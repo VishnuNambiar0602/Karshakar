@@ -1,4 +1,5 @@
 import 'server-only';
+import { logger } from '@/lib/logger';
 
 export interface MandiPriceItem {
   mandiName: string;
@@ -88,21 +89,18 @@ const MANDI_BASE_PRICES: Record<string, { base: number; variety: string; mandis:
 /**
  * Gets real-time simulated Mandi prices for a crop.
  */
-export async function getMandiPrices(crop: string): Promise<MandiPriceItem[]> {
+export function getSimulatedMandiPrices(crop: string): MandiPriceItem[] {
   const normCrop = Object.keys(MANDI_BASE_PRICES).find(
     k => k.toLowerCase() === crop.toLowerCase()
   ) || 'Wheat';
   
   const data = MANDI_BASE_PRICES[normCrop];
   const todayStr = new Date().toISOString().split('T')[0];
-  
-  // Seed price based on date to maintain consistency within a day
   const dateSeed = todayStr.split('-').reduce((acc, val) => acc + parseInt(val), 0);
   
   return data.mandis.map((m, index) => {
-    // Generate deterministic variance based on date + mandi index
     const seed = dateSeed + index * 17;
-    const variancePercent = ((seed % 15) - 7) / 100; // -7% to +7%
+    const variancePercent = ((seed % 15) - 7) / 100;
     const modalPrice = Math.round(data.base * (1 + variancePercent));
     const minPrice = Math.round(modalPrice * 0.9);
     const maxPrice = Math.round(modalPrice * 1.1);
@@ -119,4 +117,57 @@ export async function getMandiPrices(crop: string): Promise<MandiPriceItem[]> {
       date: todayStr
     };
   });
+}
+
+/**
+ * Fetches Mandi prices from data.gov.in Agmarknet API, or falls back to simulated data.
+ */
+export async function getMandiPrices(crop: string): Promise<MandiPriceItem[]> {
+  const apiKey = process.env.DATA_GOV_IN_API_KEY;
+
+  if (apiKey) {
+    try {
+      const commodityMap: Record<string, string> = {
+        Rice: 'Paddy(Dhan)',
+        Wheat: 'Wheat',
+        Maize: 'Maize',
+        Cotton: 'Cotton',
+        Tomato: 'Tomato',
+        Potato: 'Potato',
+        Onion: 'Onion',
+      };
+      const queryCommodity = commodityMap[crop] || crop;
+
+      const url = `https://api.data.gov.in/resource/9ef8428a-d404-4115-a2d4-b96a1a829680?api-key=${apiKey}&format=json&filters[commodity]=${encodeURIComponent(queryCommodity)}&limit=10`;
+      
+      const res = await fetch(url);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.records && json.records.length > 0) {
+          logger.info('mandi_prices_fetched_real', { crop, recordsCount: json.records.length });
+          return json.records.map((r: any) => ({
+            mandiName: `${r.market || 'Mandi'} Market`,
+            state: r.state || 'N/A',
+            district: r.district || 'N/A',
+            crop: crop,
+            variety: r.variety || 'Common',
+            minPrice: parseFloat(r.min_price || '0'),
+            maxPrice: parseFloat(r.max_price || '0'),
+            modalPrice: parseFloat(r.modal_price || '0'),
+            date: r.arrival_date || new Date().toISOString().split('T')[0],
+          }));
+        } else {
+          logger.warn('mandi_prices_api_empty_records', { crop });
+        }
+      } else {
+        const errText = await res.text();
+        logger.error('mandi_prices_api_error', { status: res.status, error: errText });
+      }
+    } catch (e) {
+      logger.error('mandi_prices_api_exception', { error: String(e) });
+    }
+  }
+
+  logger.info('mandi_prices_fallback_simulated', { crop });
+  return getSimulatedMandiPrices(crop);
 }

@@ -1,4 +1,3 @@
-
 {
     "header.title": "ఎర్త్ ఇన్‌సైట్స్",
     "header.features": "లక్షణాలు",
@@ -297,5 +296,17 @@
     "payment.netbanking.select": "మీ బ్యాంకును ఎంచుకోండి",
     "payment.netbanking.selectPlaceholder": "ఒక బ్యాంకును ఎంచుకోండి",
     "payment.netbanking.note": "చెల్లింపును పూర్తి చేయడానికి మిమ్మల్ని మీ బ్యాంక్ వెబ్‌సైట్‌కు మళ్లించబడతారు.",
-    "dashboard.monitoring.pass.in": "లో"
+    "dashboard.monitoring.pass.in": "లో",
+    "header.farmer": "Farmer Portal",
+    "header.home": "Home",
+    "header.plots": "Plots",
+    "header.alerts": "Alerts",
+    "header.pestCheck": "Pest Diagnostics",
+    "dashboard.insight.title": "AI Change Analysis",
+    "dashboard.insight.confidence": "Confidence Score",
+    "dashboard.insight.action": "Recommended Action",
+    "dashboard.insight.classification.Normal": "Normal",
+    "dashboard.insight.classification.Transitional": "Transitional",
+    "dashboard.insight.classification.Concerning": "Concerning",
+    "dashboard.insight.classification.Critical": "Critical"
 }

@@ -41,6 +41,18 @@ export interface KisanAlert {
   resolved: boolean;
 }
 
+export interface NotificationLog {
+  id: string;
+  userId: string;
+  plotId: string;
+  alertId: string;
+  channel: 'sms' | 'whatsapp';
+  to: string;
+  status: 'sent' | 'failed' | 'pending';
+  providerResponse?: string;
+  sentAt: string;
+}
+
 // Fallback JSON DB Configuration
 const FALLBACK_DB_PATH = path.join(os.tmpdir(), 'kisan-alert-db.json');
 
@@ -48,18 +60,23 @@ interface FallbackSchema {
   profiles: Record<string, FarmerProfile>;
   plots: Record<string, Plot[]>;
   alerts: Record<string, KisanAlert[]>;
+  notificationLogs?: NotificationLog[];
 }
 
 function initFallbackDb(): FallbackSchema {
   if (fs.existsSync(FALLBACK_DB_PATH)) {
     try {
       const data = fs.readFileSync(FALLBACK_DB_PATH, 'utf8');
-      return JSON.parse(data) as FallbackSchema;
+      const parsed = JSON.parse(data) as FallbackSchema;
+      if (!parsed.notificationLogs) {
+        parsed.notificationLogs = [];
+      }
+      return parsed;
     } catch (e) {
       logger.error('fallback_db_read_error', { error: String(e) });
     }
   }
-  const defaultDb: FallbackSchema = { profiles: {}, plots: {}, alerts: {} };
+  const defaultDb: FallbackSchema = { profiles: {}, plots: {}, alerts: {}, notificationLogs: [] };
   fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(defaultDb, null, 2), 'utf8');
   return defaultDb;
 }
@@ -273,4 +290,92 @@ export async function getAllPlots(): Promise<Plot[]> {
   // Fallback
   const db = initFallbackDb();
   return Object.values(db.plots).flat();
+}
+
+export async function addNotificationLog(logData: Omit<NotificationLog, 'id' | 'sentAt'>): Promise<NotificationLog> {
+  const completeLog: NotificationLog = {
+    ...logData,
+    id: `log_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+    sentAt: new Date().toISOString(),
+  };
+
+  if (isFirestoreEnabled()) {
+    try {
+      const db = getFirestore();
+      await db.collection('notification_logs').doc(completeLog.id).set(completeLog);
+      return completeLog;
+    } catch (e) {
+      logger.error('firestore_add_notification_log_failed', { log: completeLog, error: String(e) });
+    }
+  }
+
+  // Fallback
+  const db = initFallbackDb();
+  if (!db.notificationLogs) {
+    db.notificationLogs = [];
+  }
+  db.notificationLogs.push(completeLog);
+  saveFallbackDb(db);
+  return completeLog;
+}
+
+export async function getNotificationLogs(userId: string): Promise<NotificationLog[]> {
+  if (isFirestoreEnabled()) {
+    try {
+      const db = getFirestore();
+      const snapshot = await db.collection('notification_logs').where('userId', '==', userId).get();
+      return snapshot.docs.map(doc => doc.data() as NotificationLog);
+    } catch (e) {
+      logger.error('firestore_get_notification_logs_failed', { userId, error: String(e) });
+    }
+  }
+
+  // Fallback
+  const db = initFallbackDb();
+  return (db.notificationLogs || []).filter(l => l.userId === userId);
+}
+
+export async function getAllProfiles(): Promise<FarmerProfile[]> {
+  if (isFirestoreEnabled()) {
+    try {
+      const db = getFirestore();
+      const snapshot = await db.collection('farmer_profiles').get();
+      return snapshot.docs.map(doc => doc.data() as FarmerProfile);
+    } catch (e) {
+      logger.error('firestore_get_all_profiles_failed', { error: String(e) });
+    }
+  }
+
+  const db = initFallbackDb();
+  return Object.values(db.profiles);
+}
+
+export async function getAllAlerts(): Promise<KisanAlert[]> {
+  if (isFirestoreEnabled()) {
+    try {
+      const db = getFirestore();
+      const snapshot = await db.collection('alerts').get();
+      return snapshot.docs.map(doc => doc.data() as KisanAlert);
+    } catch (e) {
+      logger.error('firestore_get_all_alerts_failed', { error: String(e) });
+    }
+  }
+
+  const db = initFallbackDb();
+  return Object.values(db.alerts).flat();
+}
+
+export async function getAllNotificationLogs(): Promise<NotificationLog[]> {
+  if (isFirestoreEnabled()) {
+    try {
+      const db = getFirestore();
+      const snapshot = await db.collection('notification_logs').get();
+      return snapshot.docs.map(doc => doc.data() as NotificationLog);
+    } catch (e) {
+      logger.error('firestore_get_all_notification_logs_failed', { error: String(e) });
+    }
+  }
+
+  const db = initFallbackDb();
+  return db.notificationLogs || [];
 }

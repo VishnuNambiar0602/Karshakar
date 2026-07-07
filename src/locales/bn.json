@@ -1,4 +1,3 @@
-
 {
     "header.title": "আর্থ ইনসাইটস",
     "header.features": "বৈশিষ্ট্য",
@@ -297,7 +296,17 @@
     "payment.upi.enterId": "UPI আইডি লিখুন",
     "payment.netbanking.select": "আপনার ব্যাংক নির্বাচন করুন",
     "payment.netbanking.selectPlaceholder": "একটি ব্যাংক বাছুন",
-    "payment.netbanking.note": "পেমেন্ট সম্পূর্ণ করতে আপনাকে আপনার ব্যাংকের ওয়েবসাইটে পুনঃনির্দেশিত করা হবে।"
+    "payment.netbanking.note": "পেমেন্ট সম্পূর্ণ করতে আপনাকে আপনার ব্যাংকের ওয়েবসাইটে পুনঃনির্দেশিত করা হবে।",
+    "header.farmer": "Farmer Portal",
+    "header.home": "Home",
+    "header.plots": "Plots",
+    "header.alerts": "Alerts",
+    "header.pestCheck": "Pest Diagnostics",
+    "dashboard.insight.title": "AI Change Analysis",
+    "dashboard.insight.confidence": "Confidence Score",
+    "dashboard.insight.action": "Recommended Action",
+    "dashboard.insight.classification.Normal": "Normal",
+    "dashboard.insight.classification.Transitional": "Transitional",
+    "dashboard.insight.classification.Concerning": "Concerning",
+    "dashboard.insight.classification.Critical": "Critical"
 }
-
-    

@@ -1,4 +1,3 @@
-
 {
     "header.title": "আৰ্থ ইনচাইটচ",
     "header.features": "विशेषताहरु",
@@ -207,7 +206,7 @@
     "dashboard.video.error.title": "ভিডিঅ' সৃষ্টি বিফল হ'ল",
     "dashboard.video.error.description": "সময়-লেপ্স ভিডিঅ' সৃষ্টি কৰিব পৰা নগ'ল।",
     "dashboard.video.modal.title": "{metric} সময়-লেপ্স",
-    "dashboard.video.modal.description": "{location}ত {metric}ৰ পৰিৱৰ্তন দেখুওৱা এটা সৃষ্ট ভিডিঅ'।" ,
+    "dashboard.video.modal.description": "{location}ত {metric}ৰ পৰিৱৰ্তন দেখুওৱা এটা সৃষ্ট ভিডিঅ'।",
     "dashboard.monitoring.title": "स्वचालित निगरानी",
     "dashboard.monitoring.description": "इस रुचि के क्षेत्र के लिए अलर्ट सेट करें।",
     "dashboard.monitoring.toggle": "महत्वपूर्ण परिवर्तनों के लिए अलर्ट सक्षम करें",
@@ -297,5 +296,17 @@
     "payment.netbanking.select": "আপোনাৰ বেঙ্ক বাছক",
     "payment.netbanking.selectPlaceholder": "এটা বেঙ্ক বাছক",
     "payment.netbanking.note": "পৰিশোধ সম্পূৰ্ণ কৰিবলৈ আপোনাক আপোনাৰ বেঙ্কৰ ৱেবছাইটলৈ পুনৰ নির্দেশিত কৰা হ'ব।",
-    "dashboard.monitoring.pass.in": "ভিতৰত"
+    "dashboard.monitoring.pass.in": "ভিতৰত",
+    "header.farmer": "Farmer Portal",
+    "header.home": "Home",
+    "header.plots": "Plots",
+    "header.alerts": "Alerts",
+    "header.pestCheck": "Pest Diagnostics",
+    "dashboard.insight.title": "AI Change Analysis",
+    "dashboard.insight.confidence": "Confidence Score",
+    "dashboard.insight.action": "Recommended Action",
+    "dashboard.insight.classification.Normal": "Normal",
+    "dashboard.insight.classification.Transitional": "Transitional",
+    "dashboard.insight.classification.Concerning": "Concerning",
+    "dashboard.insight.classification.Critical": "Critical"
 }

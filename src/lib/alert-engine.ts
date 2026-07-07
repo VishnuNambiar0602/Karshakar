@@ -1,4 +1,4 @@
-import { getAllPlots, addAlert, getFarmerProfile, KisanAlert, Plot } from '@/lib/kisan-store';
+import { getAllPlots, addAlert, getFarmerProfile, KisanAlert, Plot, addNotificationLog } from '@/lib/kisan-store';
 import { getSoilAndWeatherData } from '@/services/open-meteo';
 import { sendNotification } from '@/services/notifications';
 import { logger } from '@/lib/logger';
@@ -38,7 +38,7 @@ export async function checkPlotThresholds(plot: Plot): Promise<AlertCheckResult>
         plotName: plot.name,
         userId: plot.userId,
         type: 'irrigation',
-        title: 'Irrigation Recommended',
+        title: 'Fields Dry - Irrigation Suggested',
         message: `Dry soil conditions detected. It is recommended to apply irrigation of approximately 1.5 inches to crop "${plot.cropType}".`,
         severity: 'medium',
       });
@@ -76,17 +76,17 @@ export async function checkPlotThresholds(plot: Plot): Promise<AlertCheckResult>
         userId: plot.userId,
         type: 'weather',
         title: 'Extreme Heatwave Alert',
-        message: `Temperature on your plot "${plot.name}" is extremely high at ${temp}°C. Increase watering frequency to protect crop "${plot.cropType}".`,
+        message: `Extreme high temperature of ${temp}°C detected on plot "${plot.name}". Increase watering frequency.`,
         severity: 'high',
       });
-    } else if (temp < 6) {
+    } else if (temp < 4) {
       alerts.push({
         plotId: plot.id,
         plotName: plot.name,
         userId: plot.userId,
         type: 'weather',
-        title: 'Frost Hazard Warning',
-        message: `Near-freezing temperature (${temp}°C) detected on your plot "${plot.name}". Take steps to protect frost-sensitive seedlings.`,
+        title: 'Frost Advisory Warning',
+        message: `Frost warning: temperature dropped to ${temp}°C on plot "${plot.name}". Take protective measures for young plants.`,
         severity: 'high',
       });
     }
@@ -126,7 +126,7 @@ export async function runAlertChecksForAllPlots(): Promise<{ checked: number; al
     
     for (const alertData of result.alerts) {
       // 1. Add alert to DB
-      await addAlert(alertData);
+      const createdAlert = await addAlert(alertData);
       alertsCreatedCount++;
 
       // 2. Fetch Farmer Profile to send notification
@@ -139,16 +139,33 @@ export async function runAlertChecksForAllPlots(): Promise<{ checked: number; al
         void (async () => {
           try {
             // Send SMS
-            await sendNotification({
+            const smsSuccess = await sendNotification({
               to: profile.phone,
               message: message,
               type: 'sms'
             });
+            await addNotificationLog({
+              userId: plot.userId,
+              plotId: plot.id,
+              alertId: createdAlert.id,
+              channel: 'sms',
+              to: profile.phone,
+              status: smsSuccess ? 'sent' : 'failed',
+            });
+
             // Send WhatsApp
-            await sendNotification({
+            const waSuccess = await sendNotification({
               to: profile.phone,
               message: message,
               type: 'whatsapp'
+            });
+            await addNotificationLog({
+              userId: plot.userId,
+              plotId: plot.id,
+              alertId: createdAlert.id,
+              channel: 'whatsapp',
+              to: profile.phone,
+              status: waSuccess ? 'sent' : 'failed',
             });
           } catch (err) {
             logger.error('alert_notification_dispatch_failed', { plotId: plot.id, userId: plot.userId, error: String(err) });

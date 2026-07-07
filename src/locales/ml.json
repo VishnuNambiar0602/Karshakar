@@ -1,4 +1,3 @@
-
 {
     "header.title": "എർത്ത് ഇൻസൈറ്റ്സ്",
     "header.features": "സവിശേഷതകൾ",
@@ -297,5 +296,17 @@
     "payment.netbanking.select": "നിങ്ങളുടെ ബാങ്ക് തിരഞ്ഞെടുക്കുക",
     "payment.netbanking.selectPlaceholder": "ഒരു ബാങ്ക് തിരഞ്ഞെടുക്കുക",
     "payment.netbanking.note": "പേയ്‌മെൻ്റ് പൂർത്തിയാക്കാൻ നിങ്ങളെ നിങ്ങളുടെ ബാങ്കിൻ്റെ വെബ്സൈറ്റിലേക്ക് റീഡയറക്ട് ചെയ്യും.",
-    "dashboard.monitoring.pass.in": "ൽ"
+    "dashboard.monitoring.pass.in": "ൽ",
+    "header.farmer": "Farmer Portal",
+    "header.home": "Home",
+    "header.plots": "Plots",
+    "header.alerts": "Alerts",
+    "header.pestCheck": "Pest Diagnostics",
+    "dashboard.insight.title": "AI Change Analysis",
+    "dashboard.insight.confidence": "Confidence Score",
+    "dashboard.insight.action": "Recommended Action",
+    "dashboard.insight.classification.Normal": "Normal",
+    "dashboard.insight.classification.Transitional": "Transitional",
+    "dashboard.insight.classification.Concerning": "Concerning",
+    "dashboard.insight.classification.Critical": "Critical"
 }

@@ -1,4 +1,3 @@
-
 {
     "header.title": "ಅರ್ಥ್ ಇನ್‌ಸೈಟ್ಸ್",
     "header.features": "ವೈಶಿಷ್ಟ್ಯಗಳು",
@@ -297,5 +296,17 @@
     "payment.netbanking.select": "ನಿಮ್ಮ ಬ್ಯಾಂಕ್ ಆಯ್ಕೆಮಾಡಿ",
     "payment.netbanking.selectPlaceholder": "ఒక బ్యాంకును ఎంచుకోండి",
     "payment.netbanking.note": "ಪಾವತಿಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ನಿಮ್ಮನ್ನು ನಿಮ್ಮ ಬ್ಯಾಂಕಿನ ವೆಬ್‌ಸೈಟ್‌ಗೆ ಮರುನಿರ್ದೇಶಿಸಲಾಗುತ್ತದೆ.",
-    "dashboard.monitoring.pass.in": "ನಲ್ಲಿ"
+    "dashboard.monitoring.pass.in": "ನಲ್ಲಿ",
+    "header.farmer": "Farmer Portal",
+    "header.home": "Home",
+    "header.plots": "Plots",
+    "header.alerts": "Alerts",
+    "header.pestCheck": "Pest Diagnostics",
+    "dashboard.insight.title": "AI Change Analysis",
+    "dashboard.insight.confidence": "Confidence Score",
+    "dashboard.insight.action": "Recommended Action",
+    "dashboard.insight.classification.Normal": "Normal",
+    "dashboard.insight.classification.Transitional": "Transitional",
+    "dashboard.insight.classification.Concerning": "Concerning",
+    "dashboard.insight.classification.Critical": "Critical"
 }

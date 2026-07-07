@@ -25,14 +25,14 @@ export async function getAuthContext(): Promise<AuthContext> {
   const roleFromHeader = headerStore.get('x-user-role') ?? undefined;
   const ipHeader = headerStore.get('x-forwarded-for');
 
-  const userIdFromCookie = cookieStore.get('earth_insights_user_id')?.value;
-  const roleFromCookie = cookieStore.get('earth_insights_user_role')?.value;
+  const userIdFromCookie = cookieStore.get('kisan_alert_user_id')?.value;
+  const roleFromCookie = cookieStore.get('kisan_alert_user_role')?.value;
 
   const userId = userIdFromHeader || userIdFromCookie || 'anonymous';
   const role = normalizeRole(roleFromHeader || roleFromCookie);
   const ip = (ipHeader || '0.0.0.0').split(',')[0]?.trim() || '0.0.0.0';
 
-  const authRequired = process.env.AUTH_REQUIRED === 'true';
+  const authRequired = process.env.AUTH_REQUIRED === 'true' || process.env.NODE_ENV === 'production';
   if (authRequired && userId === 'anonymous') {
     throw new Error('Unauthorized: missing authenticated user context.');
   }

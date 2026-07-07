@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Globe2, LayoutDashboard, Settings, Mail, Menu, DollarSign, Sprout } from "lucide-react";
+import { Globe2, LayoutDashboard, Settings, Mail, Menu, Sprout, Bell, Camera } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "./ui/button";
 import React, { useState, useEffect } from "react";
@@ -38,6 +38,15 @@ export function Header() {
     isLandingPage && !isScrolled ? "text-white hover:bg-white/20" : ""
   );
 
+  const navItems = [
+    { href: "/", labelKey: "header.home", fallback: "Home", icon: Globe2 },
+    { href: "/plots", labelKey: "header.plots", fallback: "Plots", icon: Sprout },
+    { href: "/alerts", labelKey: "header.alerts", fallback: "Alerts", icon: Bell },
+    { href: "/pest-check", labelKey: "header.pestCheck", fallback: "Pest Diagnostics", icon: Camera },
+    { href: "/dashboard", labelKey: "header.dashboard", fallback: "Satellite View", icon: LayoutDashboard },
+    { href: "/settings", labelKey: "header.settings", fallback: "Settings", icon: Settings },
+  ];
+
   return (
     <header className={navClass}>
       <div className="container flex h-16 items-center">
@@ -49,30 +58,22 @@ export function Header() {
         </div>
         
         <nav className="hidden md:flex items-center space-x-2">
-            <Button variant="ghost" asChild className={buttonLinkClass}>
-                <Link href="/dashboard">
-                    <LayoutDashboard className="mr-2 h-4 w-4"/>
-                    {t('header.dashboard')}
-                </Link>
+          {navItems.map(item => (
+            <Button
+              key={item.href}
+              variant="ghost"
+              asChild
+              className={cn(
+                buttonLinkClass,
+                pathname === item.href && "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold"
+              )}
+            >
+              <Link href={item.href}>
+                <item.icon className="mr-2 h-4 w-4"/>
+                {t(item.labelKey) || item.fallback}
+              </Link>
             </Button>
-            <Button variant="ghost" asChild className={buttonLinkClass}>
-                <Link href="/farmer">
-                    <Sprout className="mr-2 h-4 w-4"/>
-                    {t('header.farmer')}
-                </Link>
-            </Button>
-            <Button variant="ghost" asChild className={buttonLinkClass}>
-                <Link href="/pricing">
-                    <DollarSign className="mr-2 h-4 w-4"/>
-                    {t('header.pricing')}
-                </Link>
-            </Button>
-            <Button variant="ghost" asChild className={buttonLinkClass}>
-                <Link href="/settings">
-                    <Settings className="mr-2 h-4 w-4"/>
-                    {t('header.settings')}
-                </Link>
-            </Button>
+          ))}
         </nav>
 
         <div className="flex items-center justify-end space-x-2 md:ml-4">
@@ -95,35 +96,28 @@ export function Header() {
                     </SheetTrigger>
                     <SheetContent side="right" className="w-[300px]">
                         <nav className="flex flex-col gap-4 mt-8">
-                            <SheetClose asChild>
-                                <Link href="/dashboard" className="flex items-center gap-2 text-lg font-medium">
-                                    <LayoutDashboard className="h-5 w-5" /> {t('header.dashboard')}
-                                </Link>
+                          {navItems.map(item => (
+                            <SheetClose asChild key={item.href}>
+                              <Link
+                                href={item.href}
+                                className={cn(
+                                  "flex items-center gap-2 text-lg font-medium",
+                                  pathname === item.href && "text-emerald-600 dark:text-emerald-400 font-bold"
+                                )}
+                              >
+                                <item.icon className="h-5 w-5" /> {t(item.labelKey) || item.fallback}
+                              </Link>
                             </SheetClose>
-                            <SheetClose asChild>
-                                <Link href="/farmer" className="flex items-center gap-2 text-lg font-medium">
-                                    <Sprout className="h-5 w-5" /> {t('header.farmer')}
-                                </Link>
-                            </SheetClose>
-                            <SheetClose asChild>
-                                <Link href="/pricing" className="flex items-center gap-2 text-lg font-medium">
-                                    <DollarSign className="h-5 w-5" /> {t('header.pricing')}
-                                </Link>
-                            </SheetClose>
-                            <SheetClose asChild>
-                                <Link href="/settings" className="flex items-center gap-2 text-lg font-medium">
-                                    <Settings className="h-5 w-5" /> {t('header.settings')}
-                                </Link>
-                            </SheetClose>
-                            <SheetClose asChild>
-                                <Button variant="ghost" className="w-full justify-start gap-2 text-lg font-medium" onClick={() => setContactOpen(true)}>
-                                    <Mail className="h-5 w-5" /> {t('header.contact')}
-                                </Button>
-                            </SheetClose>
-                            <div className="flex items-center justify-between pt-4 border-t">
-                                <LanguageSwitcher />
-                                <ThemeToggle />
-                            </div>
+                          ))}
+                          <SheetClose asChild>
+                              <Button variant="ghost" className="w-full justify-start gap-2 text-lg font-medium p-0 h-auto" onClick={() => setContactOpen(true)}>
+                                  <Mail className="h-5 w-5" /> {t('header.contact')}
+                              </Button>
+                          </SheetClose>
+                          <div className="flex items-center justify-between pt-4 border-t">
+                              <LanguageSwitcher />
+                              <ThemeToggle />
+                          </div>
                         </nav>
                     </SheetContent>
                 </Sheet>

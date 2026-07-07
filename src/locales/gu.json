@@ -1,4 +1,3 @@
-
 {
     "header.title": "અર્થ ઇનસાઇટ્સ",
     "header.features": "વિશેષતા",
@@ -297,5 +296,17 @@
     "payment.netbanking.select": "ਆਪਣਾ ਬੈਂਕ ਚੁਣੋ",
     "payment.netbanking.selectPlaceholder": "ਇੱਕ ਬੈਂਕ ਚੁਣੋ",
     "payment.netbanking.note": "ਭੁਗਤਾਨ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ ਬੈਂਕ ਦੀ ਵੈੱਬਸਾਈਟ 'ਤੇ ਰੀਡਾਇਰੈਕਟ ਕੀਤਾ ਜਾਵੇਗਾ।",
-    "dashboard.monitoring.pass.in": "ਵਿੱਚ"
+    "dashboard.monitoring.pass.in": "ਵਿੱਚ",
+    "header.farmer": "Farmer Portal",
+    "header.home": "Home",
+    "header.plots": "Plots",
+    "header.alerts": "Alerts",
+    "header.pestCheck": "Pest Diagnostics",
+    "dashboard.insight.title": "AI Change Analysis",
+    "dashboard.insight.confidence": "Confidence Score",
+    "dashboard.insight.action": "Recommended Action",
+    "dashboard.insight.classification.Normal": "Normal",
+    "dashboard.insight.classification.Transitional": "Transitional",
+    "dashboard.insight.classification.Concerning": "Concerning",
+    "dashboard.insight.classification.Critical": "Critical"
 }

@@ -1,5 +1,6 @@
 {
-  "name": "nextn",
+  "name": "kisan-alert",
+  "description": "Kisan Alert - Smart Farmer Advisory and Satellite Monitoring Portal",
   "version": "0.1.0",
   "private": true,
   "engines": {

@@ -1,4 +1,3 @@
-
 {
     "header.title": "எர்த் இன்சைட்ஸ்",
     "header.features": "அம்சங்கள்",
@@ -297,5 +296,17 @@
     "payment.netbanking.select": "உங்கள் வங்கியைத் தேர்ந்தெடுக்கவும்",
     "payment.netbanking.selectPlaceholder": "ஒரு வங்கியைத் தேர்ந்தெடுக்கவும்",
     "payment.netbanking.note": "கட்டணத்தை முடிக்க உங்கள் வங்கியின் வலைத்தளத்திற்கு நீங்கள் திருப்பி விடப்படுவீர்கள்.",
-    "dashboard.monitoring.pass.in": "இல்"
+    "dashboard.monitoring.pass.in": "இல்",
+    "header.farmer": "Farmer Portal",
+    "header.home": "Home",
+    "header.plots": "Plots",
+    "header.alerts": "Alerts",
+    "header.pestCheck": "Pest Diagnostics",
+    "dashboard.insight.title": "AI Change Analysis",
+    "dashboard.insight.confidence": "Confidence Score",
+    "dashboard.insight.action": "Recommended Action",
+    "dashboard.insight.classification.Normal": "Normal",
+    "dashboard.insight.classification.Transitional": "Transitional",
+    "dashboard.insight.classification.Concerning": "Concerning",
+    "dashboard.insight.classification.Critical": "Critical"
 }

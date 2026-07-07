@@ -1,0 +1,15 @@
+apiVersion: scheduler.cnrm.cloud.google.com/v1beta1
+kind: SchedulerJob
+metadata:
+  name: kisan-alert-check-scheduler
+  namespace: default
+spec:
+  description: "Triggers Kisan Alert evaluations every 4 hours"
+  schedule: "0 */4 * * *"
+  timeZone: "Asia/Kolkata"
+  httpTarget:
+    uri: "https://kisan-alert-url.run.app/api/cron/run-alerts"
+    httpMethod: "POST"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer ${CRON_SECRET}"

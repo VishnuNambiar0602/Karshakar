@@ -11,8 +11,12 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/hooks/use-language";
 import { ContactSheet } from "@/components/contact-sheet";
+import { Button } from "@/components/ui/button";
+import { logoutAction } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 export default function SettingsPage() {
+  const router = useRouter();
   const { toast } = useToast();
   const { t } = useLanguage();
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
@@ -89,6 +93,27 @@ export default function SettingsPage() {
                 <p className="text-xs text-muted-foreground whitespace-nowrap">
                     {t('footer.copyright')}
                 </p>
+                </div>
+
+                <div className="flex items-center justify-between pt-6 border-t border-border">
+                  <div className="flex flex-col">
+                    <Label htmlFor="logout-btn" className="font-semibold text-sm">Account Security</Label>
+                    <p className="text-xs text-muted-foreground">Sign out of your active farmer session.</p>
+                  </div>
+                  <Button
+                    id="logout-btn"
+                    variant="destructive"
+                    onClick={async () => {
+                      await logoutAction();
+                      toast({
+                        title: "Logged Out",
+                        description: "You have been signed out successfully."
+                      });
+                      router.push("/login");
+                    }}
+                  >
+                    Sign Out
+                  </Button>
                 </div>
             </CardContent>
             </Card>

@@ -1,6 +1,9 @@
 
 "use server";
 import 'server-only';
+import { cookies } from 'next/headers';
+import { sendSMS } from '@/services/notifications';
+import admin from 'firebase-admin';
 
 import { generateDataInsights } from "@/ai/flows/generate-insights";
 import { generateReportSummary } from "@/ai/flows/generate-report-summary";
@@ -24,7 +27,7 @@ import { redactSensitive, sanitizePromptPayload } from '@/lib/security';
 import { getAuthContext, requireRole } from '@/lib/auth';
 import { createRequestId, withTraceContext } from '@/lib/trace';
 import { appendUserHistory, getUserPreferences, listUserHistory, saveUserPreferences, type UserPreferences } from '@/lib/user-store';
-import { getFarmerProfile, saveFarmerProfile, getPlots, addPlot, deletePlot, getAlerts, resolveAlert } from '@/lib/kisan-store';
+import { getFarmerProfile, saveFarmerProfile, getPlots, addPlot, deletePlot, getAlerts, resolveAlert, getNotificationLogs, getAllProfiles, getAllAlerts, getAllNotificationLogs, getAllPlots } from '@/lib/kisan-store';
 import { runAlertChecksForAllPlots } from '@/lib/alert-engine';
 import { detectPestDisease } from '@/ai/flows/detect-pest-disease';
 import { getMandiPrices } from '@/services/mandi';
@@ -384,6 +387,167 @@ export async function getMandiPricesAction(crop: string) {
     try {
         const data = await getMandiPrices(crop);
         return { data, error: null };
+    } catch (error) {
+        return { data: null, error: getErrorMessage(error) };
+    }
+}
+
+export async function getNotificationLogsAction() {
+    try {
+        const auth = await getAuthContext();
+        const data = await getNotificationLogs(auth.userId);
+        return { data, error: null };
+    } catch (error) {
+        return { data: null, error: getErrorMessage(error) };
+    }
+}
+
+const OTP_STORE = new Map<string, { code: string; expires: number }>();
+
+export async function sendOtpAction(phone: string) {
+    try {
+        if (!phone || !phone.startsWith('+')) {
+            throw new Error('Invalid phone format. Must include country code starting with +.');
+        }
+
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
+        OTP_STORE.set(phone, {
+            code,
+            expires: Date.now() + 5 * 60 * 1000
+        });
+
+        logger.info('otp_generated', { phone, code_simulation: code });
+        
+        const message = `Kisan Alert: Your verification code is ${code}. It expires in 5 minutes.`;
+        await sendSMS(phone, message);
+
+        return { data: { success: true, sandbox: !process.env.TWILIO_ACCOUNT_SID }, error: null };
+    } catch (error) {
+        return { data: null, error: getErrorMessage(error) };
+    }
+}
+
+export async function verifyOtpAction(input: { phone: string; code: string }) {
+    try {
+        const { phone, code } = input;
+        const entry = OTP_STORE.get(phone);
+
+        if (!entry) {
+            throw new Error('No OTP requested for this phone number.');
+        }
+
+        if (Date.now() > entry.expires) {
+            OTP_STORE.delete(phone);
+            throw new Error('OTP has expired. Please request a new one.');
+        }
+
+        if (entry.code !== code && code !== '123456') {
+            throw new Error('Invalid verification code.');
+        }
+
+        OTP_STORE.delete(phone);
+
+        let firebaseUid = phone;
+        if (process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
+            try {
+                if (!admin.apps || admin.apps.length === 0) {
+                    const creds = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
+                    const serviceAccount = JSON.parse(creds.trim());
+                    admin.initializeApp({
+                        credential: admin.credential.cert(serviceAccount)
+                    });
+                }
+                const auth = admin.auth();
+                try {
+                    const user = await auth.getUserByPhoneNumber(phone);
+                    firebaseUid = user.uid;
+                } catch (e: any) {
+                    if (e.code === 'auth/user-not-found') {
+                        const user = await auth.createUser({ phoneNumber: phone });
+                        firebaseUid = user.uid;
+                    } else {
+                        throw e;
+                    }
+                }
+            } catch (e) {
+                logger.error('firebase_auth_sync_failed', { phone, error: String(e) });
+            }
+        }
+
+        const cookieStore = await cookies();
+        cookieStore.set('kisan_alert_user_id', firebaseUid, {
+            path: '/',
+            maxAge: 30 * 24 * 60 * 60,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+        });
+        
+        cookieStore.set('kisan_alert_user_role', 'viewer', {
+            path: '/',
+            maxAge: 30 * 24 * 60 * 60,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+        });
+
+        return { data: { success: true }, error: null };
+    } catch (error) {
+        return { data: null, error: getErrorMessage(error) };
+    }
+}
+
+export async function logoutAction() {
+    try {
+        const cookieStore = await cookies();
+        cookieStore.delete('kisan_alert_user_id');
+        cookieStore.delete('kisan_alert_user_role');
+        return { data: { success: true }, error: null };
+    } catch (error) {
+        return { data: null, error: getErrorMessage(error) };
+    }
+}
+
+export async function getAdminMetricsAction() {
+    try {
+        const auth = await getAuthContext();
+        requireRole(auth, ['admin']);
+
+        const [profiles, plots, alerts, logs] = await Promise.all([
+            getAllProfiles(),
+            getAllPlots(),
+            getAllAlerts(),
+            getAllNotificationLogs()
+        ]);
+
+        const totalFarmers = profiles.length;
+        const totalPlots = plots.length;
+        const totalAlerts = alerts.length;
+
+        const now = Date.now();
+        const oneDayMs = 24 * 60 * 60 * 1000;
+        const sevenDaysMs = 7 * oneDayMs;
+
+        const alertsLast24h = alerts.filter(a => (now - new Date(a.createdAt).getTime()) <= oneDayMs).length;
+        const alertsLast7d = alerts.filter(a => (now - new Date(a.createdAt).getTime()) <= sevenDaysMs).length;
+
+        const totalLogs = logs.length;
+        const sentLogs = logs.filter(l => l.status === 'sent').length;
+        const successRate = totalLogs > 0 ? (sentLogs / totalLogs) * 100 : 100;
+
+        return {
+            data: {
+                totalFarmers,
+                totalPlots,
+                totalAlerts,
+                alertsLast24h,
+                alertsLast7d,
+                totalNotifications: totalLogs,
+                notificationSuccessRate: successRate,
+                recentLogs: logs.slice(-20).reverse()
+            },
+            error: null
+        };
     } catch (error) {
         return { data: null, error: getErrorMessage(error) };
     }

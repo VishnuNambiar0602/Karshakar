@@ -1,42 +1,62 @@
-# Earth Insights Analysis Platform
+# Kisan Alert - Smart Farmer Advisory & Satellite Monitoring Portal
 
-The Earth Insights Analysis Platform is a comprehensive geospatial application designed to provide environmental and agricultural analytics. By utilizing NASA Landsat satellite imagery and real-time meteorological data, the platform delivers actionable insights for land management, climate monitoring, and agricultural optimization.
+Kisan Alert is a farmer-first agricultural portal designed to provide real-time soil condition diagnostics, automated weather alerts, and AI-powered crop leaf disease pathology. Powered by the **Earth Insights** satellite and machine learning engine, Kisan Alert bridges the gap between complex geospatial data and actionable agricultural advice.
 
-## Core Capabilities
+---
 
-### Geospatial Analytics
-The platform leverages Google Earth Engine to process satellite data and compute critical environmental indices:
-*   Normalized Difference Vegetation Index (NDVI) for vegetation health monitoring.
-*   Normalized Difference Water Index (NDWI) for surface water detection and analysis.
-*   Normalized Difference Built-up Index (NDBI) for monitoring urban expansion.
-*   Normalized Burn Ratio (NBR) for assessment of burn severity in fire-affected regions.
+## 🌾 Core Capabilities
 
-### Land Cover Classification
-Automated analysis compares historical and current satellite imagery to identify changes in land use, including deforestation, urbanization, and water body fluctuations.
+### 1. Interactive 3D Satellite Plot Tracker
+Farmers can register their land plots by latitude and longitude. The plots are mapped onto a rotating, mouse-interactive 3D globe as glowing markers that pulse in colors reflecting active alert severity.
 
-### Artificial Intelligence Integration
-The system integrates Google Gemini and other Large Language Models to interpret complex geospatial datasets. This provides users with natural language summaries of environmental trends and predictive agricultural advice.
+### 2. Automatic Meteorological & Soil Alerts
+Kisan Alert runs evaluations on a 4-hour schedule comparing local crop plots with live sensor records from the Open-Meteo and Soil APIs. Immediate warnings are generated for conditions such as:
+*   **Volumetric Water Content (VWC) anomalies** (dry soil or waterlogging saturation).
+*   **Extreme heatwaves** (above 40°C).
+*   **Frost hazards** (below 4°C).
+*   **Heavy precipitation** (flooding risks).
+*   **Irrigation recommendations** (approximate watering depths tailored to crop types).
 
-### Meteorological Integration
-Real-time and historical data from the Open-Meteo API are correlated with satellite observations to provide a holistic view of environmental conditions, including soil moisture and precipitation trends.
+### 3. AI Crop Leaf Pathology Scanner
+Upload a photograph of a plant leaf with spots or insect damage. Using **Gemini Vision** (with local fallback mock classification), the portal analyzes the leaf to identify:
+*   Pest infestations, disease strains, or nutritional deficiencies.
+*   Organic control remedies (traditional, chemical-free methods).
+*   Chemical remedies.
+*   Long-term crop rotation and irrigation prevention schedules.
 
-## Technical Foundation
+### 4. Text-to-Speech Voice Advisories
+To support low-literacy users and improve accessibility, farmers can click a "listen" button on any active alert warning or AI diagnostic result card to play an audio advisory read out in their regional language.
+
+### 5. Mandi Rates Market Ticker
+Surfaces live commodity prices per Quintal for major Indian crops (Wheat, Rice, Cotton, Tomato, Potato, Onion, etc.) by connecting to the **data.gov.in Agmarknet API**, complete with minimum, maximum, and modal price trading ranges.
+
+---
+
+## ⚡ The Earth Insights Advanced Analytics Engine
+Under the hood, Kisan Alert is backed by the high-performance **Earth Insights** engine:
+*   **Geospatial Processing:** Uses Google Earth Engine to compute spectral indices (NDVI for vegetation health, NDWI for water detection, NDBI for urban growth, and NBR for burn assessment).
+*   **Machine Learning:** Employs a customized U-Net segmentation architecture to classify land cover and forecast crop yields.
+*   **Serverless Chaining:** Runs Cloud Run Jobs and Google Cloud Workflows to handle high-throughput batch operations.
+
+---
+
+## 🛠️ Technical Foundation
 
 *   **Framework:** Next.js 15 (App Router)
 *   **Runtime:** Node.js
-*   **Data Processing:** Google Earth Engine
-*   **AI Framework:** Google Genkit
-*   **Language:** TypeScript
-*   **Styling:** Tailwind CSS and Radix UI
-*   **Database Integration:** Firebase Admin SDK (Initialization ready)
+*   **Notifications:** Twilio SMS + WhatsApp Cloud API
+*   **AI Framework:** Google Genkit + Gemini 2.5
+*   **Database:** Dual-storage architecture (Firestore + local file JSON DB fallback)
+*   **Test Suite:** Vitest (including JSON locales key-parity tests)
 
-## Implementation Details
+---
 
-The application is structured as a modern full-stack platform. Server-side logic handles high-compute tasks and secure API communication, while the client-side dashboard provides interactive visualizations using Recharts. A robust fallback mechanism is implemented to ensure AI service availability across multiple providers, including Groq and Mistral.
+## 💰 MVP Tier Notice
+The Kisan Alert MVP is **100% free** for all farmers. Pricing tiers and paid checkout pages have been hidden for this milestone. All registered farmers receive full access to alerts, diagnostics, and mandi lookups.
 
-## Documentation
+---
 
-For more detailed information, please refer to the following documents:
-*   [Comprehensive Project Documentation](docs/PROJECT_DOCUMENTATION.md)
+## 📖 Documentation
+*   [Kisan Alert Roadmap](TODO.md)
 *   [Technical Architecture](docs/ARCHITECTURE.md)
-*   [Development Roadmap](docs/ROADMAP.md)
+*   [Comprehensive Project Documentation](docs/PROJECT_DOCUMENTATION.md)
