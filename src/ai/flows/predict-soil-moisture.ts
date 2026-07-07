@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview A flow for getting real-time soil moisture based on location.

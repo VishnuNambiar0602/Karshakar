@@ -368,7 +368,7 @@ Now provide the JSON:`;
         case 'chatbot':
           const messages = inputData.messages as any[];
           const historyText = messages.map(m => `${sanitizeInput(m.role)}: ${sanitizeInput(m.content)}`).join('\n');
-          promptText = `You are Stark, the friendly AI guide for the Earth Insights Dashboard. 
+          promptText = `You are Stark, the friendly AI guide for the Kisan Alert Dashboard. 
 Your personality is curious, encouraging, and enthusiastic about data and space.
 
 Conversation History:

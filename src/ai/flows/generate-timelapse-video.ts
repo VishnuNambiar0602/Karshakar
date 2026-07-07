@@ -1,5 +1,4 @@
 
-'use server';
 /**
  * @fileOverview A flow for generating a time-lapse video of an environmental metric.
  * - generateTimelapseVideo - Generates a video from a text prompt derived from dashboard settings.

@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview A flow for analyzing drought and flood risk for a given location.

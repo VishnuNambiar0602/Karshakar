@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview A flow for suggesting a suitable crop based on detailed farm parameters.

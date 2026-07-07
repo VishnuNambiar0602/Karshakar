@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { getUserPreferencesAction, saveUserPreferencesAction } from '@/lib/actions';
+import enTranslations from '@/locales/en.json';
 
 // Define the shape of the context
 interface LanguageContextType {
@@ -21,7 +22,7 @@ interface LanguageProviderProps {
 // Create a provider component
 export function LanguageProvider({ children }: LanguageProviderProps) {
   const [language, setLanguage] = useState('en');
-  const [translations, setTranslations] = useState<Record<string, string>>({});
+  const [translations, setTranslations] = useState<Record<string, string>>(enTranslations);
 
   useEffect(() => {
     void (async () => {

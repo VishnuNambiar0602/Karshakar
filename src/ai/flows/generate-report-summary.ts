@@ -1,4 +1,3 @@
-'use server';
 
 /**
  * @fileOverview This file defines a Genkit flow for generating a summary report of key findings from computed environmental metrics.

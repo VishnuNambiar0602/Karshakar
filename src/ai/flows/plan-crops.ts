@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview A flow for suggesting crop plans based on REAL climate and soil data.

@@ -2,7 +2,7 @@
 import chalk from 'chalk';
 
 export function runStartupChecks() {
-  console.log(chalk.bold.yellow('🚀 Running Earth Insights Dashboard Startup Checks...'));
+  console.log(chalk.bold.yellow('🚀 Running Kisan Alert Dashboard Startup Checks...'));
 
   let allKeysValid = true;
 

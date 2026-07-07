@@ -1,5 +1,4 @@
 // This file uses server-side code, marking it with 'use server'.
-'use server';
 
 /**
  * @fileOverview AI-powered insights generator for environmental data.

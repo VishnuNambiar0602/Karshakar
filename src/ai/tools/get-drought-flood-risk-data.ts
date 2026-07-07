@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview An AI tool to get historical precipitation and current soil moisture data for drought and flood risk analysis.

@@ -1,4 +1,3 @@
-'use server';
 
 /**
  * @fileOverview A flow for analyzing environmental changes based on computed metrics.
@@ -75,7 +74,7 @@ const PromptInputSchema = z.object({
 const analyzeChangePrompt = ai.definePrompt({
   name: 'analyzeChangePrompt',
   input: { schema: PromptInputSchema },
-  prompt: `You are an expert environmental analyst AI for the Earth Insights Dashboard. Your goal is to interpret environmental changes based on satellite-derived metrics.
+  prompt: `You are an expert environmental analyst AI for the Kisan Alert Dashboard. Your goal is to interpret environmental changes based on satellite-derived metrics.
 
   **Objective:**
   Analyze the provided environmental metrics for the given location and date range to detect, classify, and explain significant changes.

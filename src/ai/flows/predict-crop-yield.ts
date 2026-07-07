@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview A flow for predicting crop yield based on location and REAL climate data.

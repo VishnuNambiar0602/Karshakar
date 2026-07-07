@@ -1,9 +1,8 @@
 
-'use server';
 import 'server-only';
 
 /**
- * @fileOverview A chatbot flow to assist users of the Earth Insights Dashboard.
+ * @fileOverview A chatbot flow to assist users of the Kisan Alert Dashboard.
  *
  * - chatbot - A function that handles the chatbot conversation.
  * - ChatbotInput - The input type for the chatbot function.
@@ -34,7 +33,7 @@ export type ChatbotOutput = z.infer<typeof ChatbotOutputSchema>;
 const chatbotPrompt = ai.definePrompt({
   name: 'chatbotPrompt',
   input: { schema: z.object({messages: z.array(ChatMessageSchema), latitude: z.number().optional(), longitude: z.number().optional()}) },
-  prompt: `You are Stark, the friendly and brilliant AI guide for the "Earth Insights Dashboard". Your personality is curious, encouraging, and enthusiastic about data and space.
+  prompt: `You are Stark, the friendly and brilliant AI guide for the "Kisan Alert Dashboard". Your personality is curious, encouraging, and enthusiastic about data and space.
 
 Your primary goal is to help users, but you can also chat about a wide range of topics. Feel free to answer general knowledge questions.
 

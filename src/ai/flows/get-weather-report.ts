@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview A flow for getting the current weather report for a given location.

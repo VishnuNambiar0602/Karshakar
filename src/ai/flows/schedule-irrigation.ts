@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview A flow for creating an irrigation schedule based on REAL weather and soil data.

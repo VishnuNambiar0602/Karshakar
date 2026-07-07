@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview A flow for predicting the next satellite pass time for a given location.

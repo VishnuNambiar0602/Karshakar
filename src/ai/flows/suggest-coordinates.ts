@@ -1,4 +1,3 @@
-'use server';
 
 /**
  * @fileOverview A flow for suggesting coordinates based on a textual description of a location.

@@ -1,5 +1,4 @@
 
-'use server';
 
 /**
  * @fileOverview A flow for providing advanced, crop-specific agricultural advice.
