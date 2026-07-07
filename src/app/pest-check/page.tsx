@@ -27,7 +27,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 
-const CROPS = ['Rice', 'Wheat', 'Maize', 'Cotton', 'Tomato', 'Potato', 'Onion'];
+import { CROPS } from '@/lib/constants';
 
 interface AIDiagnosis {
   detectedIssue: string;

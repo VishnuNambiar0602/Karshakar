@@ -11,17 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { saveFarmerProfileAction, getFarmerProfileAction } from '@/lib/actions';
 import { Sprout, Loader2 } from 'lucide-react';
 
-const STATES_AND_DISTRICTS: Record<string, string[]> = {
-  Punjab: ['Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Bathinda'],
-  Haryana: ['Kurukshetra', 'Karnal', 'Ambala', 'Hisar', 'Rohtak'],
-  Maharashtra: ['Nashik', 'Pune', 'Nagpur', 'Amravati', 'Aurangabad'],
-  'Uttar Pradesh': ['Agra', 'Hapur', 'Farrukhabad', 'Mathura', 'Meerut'],
-  Gujarat: ['Rajkot', 'Bhavnagar', 'Banaskantha', 'Anand', 'Surat'],
-  Karnataka: ['Kolar', 'Davangere', 'Belagavi', 'Mandya', 'Tumakuru'],
-  'West Bengal': ['Purba Bardhaman', 'Hooghly', 'Nadia', 'Murshidabad'],
-  Telangana: ['Nalgonda', 'Warangal', 'Karimnagar', 'Medak'],
-  'Andhra Pradesh': ['Kurnool', 'Chittoor', 'Guntur', 'Anantapur'],
-};
+import { STATES_AND_DISTRICTS } from '@/lib/constants';
 
 export default function OnboardingPage() {
   const router = useRouter();

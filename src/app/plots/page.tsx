@@ -21,7 +21,7 @@ import {
 } from '@/lib/actions';
 import { Sprout, Plus, Trash2, Globe2, Loader2, MapPin, Wand2, Calendar } from 'lucide-react';
 
-const CROPS = ['Rice', 'Wheat', 'Maize', 'Cotton', 'Tomato', 'Potato', 'Onion'];
+import { CROPS } from '@/lib/constants';
 
 export default function PlotsPage() {
   const router = useRouter();

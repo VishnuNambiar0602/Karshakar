@@ -101,20 +101,7 @@ interface AIDiagnosis {
   prevention: string;
 }
 
-// Indian States & Districts Mock Data for form select dropdowns
-const STATES_AND_DISTRICTS: Record<string, string[]> = {
-  Punjab: ['Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Bathinda'],
-  Haryana: ['Kurukshetra', 'Karnal', 'Ambala', 'Hisar', 'Rohtak'],
-  Maharashtra: ['Nashik', 'Pune', 'Nagpur', 'Amravati', 'Aurangabad'],
-  'Uttar Pradesh': ['Agra', 'Hapur', 'Farrukhabad', 'Mathura', 'Meerut'],
-  Gujarat: ['Rajkot', 'Bhavnagar', 'Banaskantha', 'Anand', 'Surat'],
-  Karnataka: ['Kolar', 'Davangere', 'Belagavi', 'Mandya', 'Tumakuru'],
-  'West Bengal': ['Purba Bardhaman', 'Hooghly', 'Nadia', 'Murshidabad'],
-  Telangana: ['Nalgonda', 'Warangal', 'Karimnagar', 'Medak'],
-  'Andhra Pradesh': ['Kurnool', 'Chittoor', 'Guntur', 'Anantapur'],
-};
-
-const CROPS = ['Rice', 'Wheat', 'Maize', 'Cotton', 'Tomato', 'Potato', 'Onion'];
+import { STATES_AND_DISTRICTS, CROPS } from '@/lib/constants';
 
 export default function FarmerPortalPage() {
   const { toast } = useToast();
