@@ -292,91 +292,134 @@ export function Chatbot({ lat, lon }: { lat?: string, lon?: string }) {
     <>
       <audio ref={audioRef} className="hidden" preload="auto" />
       {isOpen ? (
-        <Card onClick={handleInteraction} className="fixed bottom-4 right-4 w-96 h-[600px] flex flex-col z-50 shadow-2xl rounded-lg">
-          <CardHeader className="flex flex-row items-center justify-between p-4 border-b">
-            <div className="flex items-center gap-2">
-                <Bot className="h-6 w-6 text-primary" />
-                <CardTitle className="text-lg">{t('chatbot.title')}</CardTitle>
+        <Card 
+          onClick={handleInteraction} 
+          className="fixed bottom-6 right-6 w-[92vw] sm:w-[400px] h-[580px] sm:h-[620px] flex flex-col z-50 glass-card border border-primary/25 dark:border-primary/35 shadow-[0_20px_50px_rgba(0,0,0,0.4)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.8)] rounded-2xl overflow-hidden transition-all duration-300 animate-in slide-in-from-bottom-8 fade-in-40 zoom-in-95"
+        >
+          <CardHeader className="flex flex-row items-center justify-between p-4 bg-gradient-to-r from-emerald-950/10 via-transparent to-transparent border-b border-primary/10">
+            <div className="flex items-center gap-2.5">
+              <div className="relative">
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-background rounded-full animate-pulse z-10" />
+                <div className="bg-primary/10 p-2 rounded-xl border border-primary/25">
+                  <Bot className="h-5 w-5 text-primary" />
+                </div>
+              </div>
+              <div>
+                <CardTitle className="text-base font-bold tracking-tight">{t('chatbot.title')}</CardTitle>
+                <p className="text-[10px] text-muted-foreground font-medium flex items-center gap-1 mt-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-ping" />
+                  {t('chatbot.status.online') || "AI Farming Expert Online"}
+                </p>
+              </div>
             </div>
-            <Button aria-label="Close chatbot" variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
+            <Button 
+              aria-label="Close chatbot" 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setIsOpen(false)}
+              className="rounded-xl hover:bg-destructive/10 hover:text-destructive transition-colors duration-200"
+            >
               <span className="sr-only">Close chatbot</span>
               <X className="h-4 w-4" />
             </Button>
           </CardHeader>
-          <CardContent className="flex-1 p-0 overflow-y-auto">
+          <CardContent className="flex-1 p-0 overflow-y-auto bg-grid-pattern bg-[size:20px_20px]">
             <ScrollArea className="h-full" ref={scrollAreaRef as any}>
-                <div className="p-4 space-y-4">
-              {messages.map((message, index) => (
-                <div key={index} className={cn('flex items-start gap-3', message.role === 'user' ? 'justify-end' : 'justify-start')}>
-                  {message.role === 'model' && (
-                     <Avatar className="w-8 h-8">
-                        <AvatarFallback><Bot /></AvatarFallback>
-                    </Avatar>
-                  )}
-                   <div className={cn(
-                        'p-3 rounded-lg max-w-[80%] relative group',
-                        message.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted'
-                    )}>
-                        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                        {message.role === 'model' && message.audioDataUri && (
-                            <Button size="icon" variant="ghost" className="absolute -right-10 top-1/2 -translate-y-1/2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity" onClick={() => handlePlayAudio(index)}>
-                               {renderAudioIcon(index)}
-                            </Button>
-                        )}
+              <div className="p-4 space-y-4">
+                {messages.map((message, index) => (
+                  <div key={index} className={cn('flex items-start gap-3', message.role === 'user' ? 'justify-end' : 'justify-start')}>
+                    {message.role === 'model' && (
+                       <Avatar className="w-8 h-8 border border-primary/20 bg-primary/10">
+                          <AvatarFallback className="text-[10px] font-bold text-primary"><Bot className="h-4 w-4" /></AvatarFallback>
+                      </Avatar>
+                    )}
+                    <div className={cn(
+                          'p-3.5 rounded-2xl max-w-[80%] relative group shadow-sm transition-all duration-300',
+                          message.role === 'user' 
+                            ? 'bg-gradient-to-br from-primary to-emerald-600 text-primary-foreground rounded-tr-none font-medium' 
+                            : 'bg-muted/80 backdrop-blur-sm dark:bg-slate-900/60 text-slate-800 dark:text-slate-100 rounded-tl-none border border-border/40 dark:border-primary/10'
+                      )}>
+                          <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                          {message.role === 'model' && message.audioDataUri && (
+                              <Button 
+                                size="icon" 
+                                variant="outline" 
+                                className="absolute -right-11 top-1/2 -translate-y-1/2 h-8 w-8 rounded-xl bg-background border border-primary/20 hover:border-primary/50 text-primary opacity-0 group-hover:opacity-100 hover:scale-105 transition-all duration-200 shadow-md" 
+                                onClick={() => handlePlayAudio(index)}
+                              >
+                                 {renderAudioIcon(index)}
+                              </Button>
+                          )}
+                      </div>
+                    {message.role === 'user' && (
+                       <Avatar className="w-8 h-8 border border-primary/20 bg-primary/10">
+                          <AvatarFallback className="text-[10px] font-bold text-primary">U</AvatarFallback>
+                      </Avatar>
+                    )}
+                  </div>
+                ))}
+                {isLoading && (
+                   <div className="flex items-start gap-3 justify-start">
+                      <Avatar className="w-8 h-8 border border-primary/20 bg-primary/10">
+                          <AvatarFallback className="text-[10px] font-bold text-primary"><Bot className="h-4 w-4" /></AvatarFallback>
+                      </Avatar>
+                      <div className="p-3.5 rounded-2xl bg-muted/80 dark:bg-slate-900/60 border border-primary/10 rounded-tl-none flex items-center justify-center">
+                          <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                        </div>
                     </div>
-                  {message.role === 'user' && (
-                     <Avatar className="w-8 h-8">
-                        <AvatarFallback>U</AvatarFallback>
-                    </Avatar>
                   )}
                 </div>
-              ))}
-              {isLoading && (
-                 <div className="flex items-start gap-3 justify-start">
-                    <Avatar className="w-8 h-8">
-                        <AvatarFallback><Bot /></AvatarFallback>
-                    </Avatar>
-                    <div className="p-3 rounded-lg bg-muted flex items-center justify-center">
-                        <Loader2 className="h-5 w-5 animate-spin" />
-                    </div>
-                </div>
-              )}
+              </ScrollArea>
+            </CardContent>
+            <CardFooter className="p-4 border-t border-primary/15 bg-background/80 backdrop-blur-md">
+              <div className="flex w-full items-center space-x-2">
+                <Input
+                  placeholder={t('chatbot.placeholder')}
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
+                  disabled={isLoading || isRecording}
+                  className="rounded-xl border-emerald-950/20 bg-background/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300"
+                />
+                <Button 
+                  aria-label="Start voice input" 
+                  onClick={handleVoiceInput} 
+                  disabled={isLoading} 
+                  variant={isRecording ? "destructive" : "outline"} 
+                  size="icon"
+                  className={cn(
+                    "rounded-xl transition-all duration-300",
+                    isRecording ? "animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.4)]" : "border-emerald-950/20 hover:bg-primary/5 hover:text-primary"
+                  )}
+                >
+                  <Mic className={cn("h-4 w-4", isRecording && "animate-bounce")} />
+                </Button>
+                <Button 
+                  aria-label="Send message" 
+                  onClick={() => handleSend()} 
+                  disabled={isLoading || isRecording || !input.trim()}
+                  className="rounded-xl bg-primary hover:bg-primary/95 text-primary-foreground shadow-md transition-all duration-300"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
               </div>
-            </ScrollArea>
-          </CardContent>
-          <CardFooter className="p-4 border-t">
-            <div className="flex w-full items-center space-x-2">
-              <Input
-                placeholder={t('chatbot.placeholder')}
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
-                disabled={isLoading || isRecording}
-              />
-               <Button aria-label="Start voice input" onClick={handleVoiceInput} disabled={isLoading} variant={isRecording ? "destructive" : "outline"} size="icon">
-                <Mic className="h-4 w-4" />
-              </Button>
-              <Button aria-label="Send message" onClick={() => handleSend()} disabled={isLoading || isRecording}>
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardFooter>
-        </Card>
-      ) : (
-        <Button
-          onClick={() => {
-              setIsOpen(true);
-              handleInteraction();
-          }}
-          className="fixed bottom-4 right-4 rounded-full w-16 h-16 shadow-lg"
-          size="icon"
-          aria-label="Open chatbot"
-        >
-          <MessageSquare className="h-6 w-6" />
-        </Button>
-      )}
-    </>
-  );
+            </CardFooter>
+          </Card>
+        ) : (
+          <Button
+            onClick={() => {
+                setIsOpen(true);
+                handleInteraction();
+            }}
+            className="fixed bottom-6 right-6 rounded-full w-16 h-16 shadow-[0_4px_20px_rgba(16,185,129,0.3)] hover:shadow-[0_8px_30px_rgba(16,185,129,0.6)] bg-primary text-primary-foreground border border-primary/20 hover:scale-110 active:scale-95 transition-all duration-300 z-50 flex items-center justify-center animate-bounce-slow"
+            size="icon"
+            aria-label="Open chatbot"
+          >
+            <MessageSquare className="h-6 w-6" />
+          </Button>
+        )}
+      </>
+    );
 }
 
     

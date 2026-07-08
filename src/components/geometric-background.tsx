@@ -58,7 +58,11 @@ export function GeometricBackground() {
             if (!ctx) return;
             ctx.beginPath();
             ctx.arc(this.x2d, this.y2d, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${this.z / width})`;
+            const alpha = this.z / width;
+            // Mix neon-emerald (52, 211, 153) and white star colors for a stellar agriculture feel
+            ctx.fillStyle = this.z % 3 === 0 
+              ? `rgba(52, 211, 153, ${alpha * 0.9})` 
+              : `rgba(255, 255, 255, ${alpha})`;
             ctx.fill();
         }
     }
@@ -73,7 +77,7 @@ export function GeometricBackground() {
     let animationFrameId: number;
     function drawFrame() {
       if (!ctx) return;
-      ctx.fillStyle = '#0a0a1a';
+      ctx.fillStyle = '#030705'; // Deep forest slate-black
       ctx.fillRect(0, 0, width, height);
 
       for (const star of stars) {

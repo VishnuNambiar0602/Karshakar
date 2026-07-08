@@ -50,31 +50,35 @@ export function Header() {
   ];
 
   return (
-    <header className={navClass}>
-      <div className="container flex h-16 items-center">
+    <header className={cn(navClass, "backdrop-blur-md border-emerald-950/10")}>
+      <div className="container flex h-16 items-center px-4 md:px-6">
         <div className="mr-auto flex items-center">
-          <Link href="/" className="flex items-center gap-2">
-            <Globe2 className="h-6 w-6" />
-            <span className="font-bold text-lg">{t('header.title')}</span>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="bg-primary/10 p-2 rounded-xl border border-primary/20 group-hover:bg-primary/20 transition-all duration-300">
+              <Globe2 className="h-5 w-5 text-primary group-hover:rotate-45 transition-transform duration-500" />
+            </div>
+            <span className="font-extrabold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/90 to-foreground/80 dark:from-white dark:to-slate-200">
+              {t('header.title')}
+            </span>
           </Link>
         </div>
 
         {isLandingPage ? (
           /* Landing page: Logo + Login/Register buttons */
           <div className="flex items-center space-x-3">
-            <LanguageSwitcher className={buttonLinkClass} />
+            <LanguageSwitcher className={cn(buttonLinkClass, "rounded-xl hover:bg-primary/5")} />
             <ThemeToggle />
             <Button
               variant="ghost"
               size="sm"
-              className={cn(buttonLinkClass, "font-bold")}
+              className={cn(buttonLinkClass, "font-bold rounded-xl hover:bg-primary/5 hover:text-primary transition-all duration-200")}
               onClick={() => router.push("/login")}
             >
               Login
             </Button>
             <Button
               size="sm"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold"
+              className="bg-primary hover:bg-primary/95 text-primary-foreground font-bold rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300"
               onClick={() => router.push("/register")}
             >
               Create Account
@@ -83,19 +87,22 @@ export function Header() {
         ) : (
           /* Internal pages: Full nav */
           <>
-            <nav className="hidden md:flex items-center space-x-2">
+            <nav className="hidden md:flex items-center space-x-1.5">
               {navItems.map(item => (
                 <Button
                   key={item.href}
                   variant="ghost"
                   asChild
                   className={cn(
+                    "rounded-xl transition-all duration-300 hover:bg-primary/5 hover:text-primary",
                     buttonLinkClass,
-                    pathname === item.href && "bg-primary/10 text-primary dark:text-primary font-bold"
+                    pathname === item.href 
+                      ? "bg-primary/10 text-primary dark:text-primary font-bold border border-primary/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]" 
+                      : "text-muted-foreground"
                   )}
                 >
-                  <Link href={item.href}>
-                    <item.icon className="mr-2 h-4 w-4"/>
+                  <Link href={item.href} className="flex items-center">
+                    <item.icon className="mr-1.5 h-4 w-4 transition-transform duration-300 group-hover:scale-110"/>
                     {t(item.labelKey) || item.fallback}
                   </Link>
                 </Button>
@@ -104,31 +111,39 @@ export function Header() {
 
             <div className="flex items-center justify-end space-x-2 md:ml-4">
               <div className="hidden sm:flex items-center space-x-2">
-                  <LanguageSwitcher className={buttonLinkClass} />
+                  <LanguageSwitcher className={cn(buttonLinkClass, "rounded-xl")} />
                   <ThemeToggle />
-                  <Button variant="secondary" size="sm" onClick={() => setContactOpen(true)}>
-                      <Mail className="mr-2 h-4 w-4" />
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="rounded-xl border hover:bg-primary/5 hover:text-primary transition-all duration-300"
+                    onClick={() => setContactOpen(true)}
+                  >
+                      <Mail className="mr-1.5 h-4 w-4" />
                       {t('header.contact')}
                   </Button>
               </div>
 
-              <div className="md:hidden">
+              <div className="md:hidden flex items-center gap-2">
+                  <ThemeToggle />
                   <Sheet open={isMobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                       <SheetTrigger asChild>
-                          <Button variant="ghost" size="icon" className={buttonLinkClass}>
+                          <Button variant="ghost" size="icon" className={cn(buttonLinkClass, "rounded-xl")}>
                               <Menu className="h-6 w-6" />
                               <span className="sr-only">Open menu</span>
                           </Button>
                       </SheetTrigger>
-                      <SheetContent side="right" className="w-[300px]">
+                      <SheetContent side="right" className="w-[300px] border-emerald-950/20 bg-background/95 backdrop-blur-xl">
                           <nav className="flex flex-col gap-4 mt-8">
                             {navItems.map(item => (
                               <SheetClose asChild key={item.href}>
                                 <Link
                                   href={item.href}
                                   className={cn(
-                                    "flex items-center gap-2 text-lg font-medium",
-                                    pathname === item.href && "text-primary dark:text-primary font-bold"
+                                    "flex items-center gap-3 text-base font-bold py-2 px-3 rounded-xl transition-all duration-200",
+                                    pathname === item.href 
+                                      ? "bg-primary/10 text-primary border border-primary/20" 
+                                      : "text-muted-foreground hover:bg-primary/5 hover:text-primary"
                                   )}
                                 >
                                   <item.icon className="h-5 w-5" /> {t(item.labelKey) || item.fallback}
@@ -136,13 +151,16 @@ export function Header() {
                               </SheetClose>
                             ))}
                             <SheetClose asChild>
-                                <Button variant="ghost" className="w-full justify-start gap-2 text-lg font-medium p-0 h-auto" onClick={() => setContactOpen(true)}>
+                                <Button 
+                                  variant="ghost" 
+                                  className="w-full justify-start gap-3 text-base font-bold py-2 px-3 h-auto rounded-xl hover:bg-primary/5 hover:text-primary" 
+                                  onClick={() => setContactOpen(true)}
+                                >
                                     <Mail className="h-5 w-5" /> {t('header.contact')}
                                 </Button>
                             </SheetClose>
-                            <div className="flex items-center justify-between pt-4 border-t">
+                            <div className="flex items-center justify-between pt-4 border-t border-emerald-950/10">
                                 <LanguageSwitcher />
-                                <ThemeToggle />
                             </div>
                           </nav>
                       </SheetContent>

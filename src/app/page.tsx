@@ -24,52 +24,67 @@ export default function LandingPage() {
   const [isContactOpen, setContactOpen] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background select-none">
       {/* Sticky Header */}
       <Header />
 
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative w-full h-[80vh] md:h-[90vh] flex items-center justify-center overflow-hidden">
+        <section className="relative w-full h-[85vh] md:h-[90vh] flex items-center justify-center overflow-hidden">
           {/* Animated Starfield Background */}
           <GeometricBackground />
           {/* Dark Gradient Overlay */}
-          <div className="absolute inset-0 z-0 bg-gray-900/60 bg-gradient-to-b from-black/50 to-gray-900/80 pointer-events-none" />
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/60 via-slate-950/80 to-background pointer-events-none" />
+
+          {/* Glowing Ambient Blob */}
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[600px] h-[350px] md:h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none z-0" />
 
           {/* Hero Content */}
-          <div className="container relative z-10 max-w-5xl mx-auto px-4 text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black tracking-tight text-white leading-none">
-              {t("landing.hero.title")}
+          <div className="container relative z-10 max-w-5xl mx-auto px-4 text-center space-y-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-mono tracking-widest uppercase mb-4 animate-pulse">
+              <span className="w-2 h-2 rounded-full bg-primary" />
+              {t("landing.whyUs.tag") || "Next-Gen Agri-Tech"}
+            </div>
+            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-tight drop-shadow-md">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-emerald-100 to-emerald-400">
+                {t("landing.hero.title")}
+              </span>
             </h1>
-            <p className="max-w-[700px] text-lg md:text-xl text-gray-200 mx-auto leading-relaxed font-medium">
+            <p className="max-w-[750px] text-lg md:text-2xl text-slate-300 mx-auto leading-relaxed font-normal">
               {t("landing.hero.subtitle")}
             </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-5 pt-6">
               <Button
                 onClick={() => router.push("/login")}
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-black h-12 px-8 rounded-xl hover:scale-105 transition-transform duration-300 shadow-lg flex items-center gap-2"
+                className="relative group bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-14 px-8 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.55)] flex items-center gap-2 overflow-hidden hover:scale-105"
               >
-                {t("landing.hero.login") || "Login"} <ArrowRight className="h-5 w-5" />
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                <span className="relative z-10 flex items-center gap-2 text-base">
+                  {t("landing.hero.login") || "Login"} <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </span>
               </Button>
               <Button
                 onClick={() => router.push("/register")}
                 variant="secondary"
                 size="lg"
-                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-black h-12 px-8 rounded-xl hover:scale-105 transition-transform duration-300 shadow-lg flex items-center gap-2"
+                className="relative group bg-slate-950/40 hover:bg-slate-900/60 text-white font-bold h-14 px-8 rounded-2xl border border-emerald-500/25 hover:border-emerald-500/50 backdrop-blur-md transition-all duration-300 shadow-lg flex items-center gap-2 hover:scale-105"
               >
-                {t("landing.hero.register") || "Create Account"} <ArrowRight className="h-5 w-5" />
+                <span className="relative z-10 flex items-center gap-2 text-base">
+                  {t("landing.hero.register") || "Create Account"} <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </span>
               </Button>
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-12 md:py-24 lg:py-32 bg-background border-t">
-          <div className="container max-w-6xl mx-auto px-4 space-y-12">
+        <section id="features" className="relative py-20 md:py-32 bg-background border-t border-emerald-950/30 overflow-hidden">
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+          <div className="container max-w-6xl mx-auto px-4 space-y-16">
             <div className="text-center space-y-4 max-w-3xl mx-auto">
-              <span className="inline-block rounded-lg bg-muted px-3 py-1 text-sm font-bold text-muted-foreground uppercase tracking-wider">
+              <span className="inline-block rounded-full bg-primary/10 border border-primary/20 px-4 py-1 text-xs font-bold text-primary uppercase tracking-widest">
                 {t("landing.features.keyFeatures")}
               </span>
               <h2 className="text-3xl font-black tracking-tight sm:text-5xl text-foreground">
@@ -81,13 +96,13 @@ export default function LandingPage() {
             </div>
 
             {/* Grid Capabilities (4 features) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Feature 1 */}
-              <div className="p-6 rounded-xl hover:bg-muted/50 transition-colors border border-transparent hover:border-border text-center space-y-4">
-                <div className="bg-primary/10 text-primary p-3.5 rounded-full w-fit mx-auto">
+              <div className="glass-card glass-card-hover p-8 rounded-3xl border border-primary/5 text-center space-y-4 group">
+                <div className="bg-primary/10 text-primary p-4 rounded-2xl w-fit mx-auto group-hover:scale-110 group-hover:bg-primary/25 transition-all duration-300">
                   <SlidersHorizontal className="h-7 w-7" />
                 </div>
-                <h3 className="text-lg font-bold text-foreground">
+                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                   {t("landing.features.coordinateInput")}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -96,11 +111,11 @@ export default function LandingPage() {
               </div>
 
               {/* Feature 2 */}
-              <div className="p-6 rounded-xl hover:bg-muted/50 transition-colors border border-transparent hover:border-border text-center space-y-4">
-                <div className="bg-primary/10 text-primary p-3.5 rounded-full w-fit mx-auto">
+              <div className="glass-card glass-card-hover p-8 rounded-3xl border border-primary/5 text-center space-y-4 group">
+                <div className="bg-primary/10 text-primary p-4 rounded-2xl w-fit mx-auto group-hover:scale-110 group-hover:bg-primary/25 transition-all duration-300">
                   <Cpu className="h-7 w-7" />
                 </div>
-                <h3 className="text-lg font-bold text-foreground">
+                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                   {t("landing.features.metricComputation")}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -109,11 +124,11 @@ export default function LandingPage() {
               </div>
 
               {/* Feature 3 */}
-              <div className="p-6 rounded-xl hover:bg-muted/50 transition-colors border border-transparent hover:border-border text-center space-y-4">
-                <div className="bg-primary/10 text-primary p-3.5 rounded-full w-fit mx-auto">
+              <div className="glass-card glass-card-hover p-8 rounded-3xl border border-primary/5 text-center space-y-4 group">
+                <div className="bg-primary/10 text-primary p-4 rounded-2xl w-fit mx-auto group-hover:scale-110 group-hover:bg-primary/25 transition-all duration-300">
                   <BarChart className="h-7 w-7" />
                 </div>
-                <h3 className="text-lg font-bold text-foreground">
+                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                   {t("landing.features.interactiveVisuals")}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -122,11 +137,11 @@ export default function LandingPage() {
               </div>
 
               {/* Feature 4 */}
-              <div className="p-6 rounded-xl hover:bg-muted/50 transition-colors border border-transparent hover:border-border text-center space-y-4">
-                <div className="bg-primary/10 text-primary p-3.5 rounded-full w-fit mx-auto">
+              <div className="glass-card glass-card-hover p-8 rounded-3xl border border-primary/5 text-center space-y-4 group">
+                <div className="bg-primary/10 text-primary p-4 rounded-2xl w-fit mx-auto group-hover:scale-110 group-hover:bg-primary/25 transition-all duration-300">
                   <Download className="h-7 w-7" />
                 </div>
-                <h3 className="text-lg font-bold text-foreground">
+                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                   {t("landing.features.exportEasily")}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -138,11 +153,12 @@ export default function LandingPage() {
         </section>
 
         {/* Why Us Section */}
-        <section id="about" className="py-12 md:py-24 lg:py-32 bg-muted/30 border-t border-b">
-          <div className="container max-w-5xl mx-auto px-4 space-y-12">
+        <section id="about" className="relative py-20 md:py-32 bg-gradient-to-b from-background via-emerald-950/5 to-background border-t border-emerald-950/20">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none" />
+          <div className="container max-w-5xl mx-auto px-4 space-y-16">
             <div className="text-center space-y-4 max-w-3xl mx-auto">
-              <span className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm font-bold text-primary uppercase tracking-wider">
-                {t("landing.whyUs.tag")}
+              <span className="inline-block rounded-full bg-primary/10 border border-primary/20 px-4 py-1 text-xs font-bold text-primary uppercase tracking-widest">
+                {t("landing.whyUs.tag") || "ABOUT US"}
               </span>
               <h2 className="text-3xl font-black tracking-tight sm:text-5xl text-foreground">
                 {t("landing.whyUs.title")}
@@ -152,28 +168,28 @@ export default function LandingPage() {
               </p>
             </div>
 
-            {/* Checklist */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 max-w-3xl mx-auto mt-12">
-              <div className="flex items-start">
-                <CheckCircle className="h-6 w-6 text-primary mr-3 shrink-0 mt-0.5" />
+            {/* Checklist Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              <div className="flex items-start p-6 rounded-2xl border border-primary/5 bg-card/60 backdrop-blur-sm hover:border-primary/20 hover:-translate-y-0.5 transition-all duration-300">
+                <CheckCircle className="h-6 w-6 text-primary mr-4 shrink-0 mt-0.5" />
                 <span className="text-muted-foreground text-sm md:text-base leading-relaxed">
                   <strong>{t("landing.whyUs.point1")}</strong>
                 </span>
               </div>
-              <div className="flex items-start">
-                <CheckCircle className="h-6 w-6 text-primary mr-3 shrink-0 mt-0.5" />
+              <div className="flex items-start p-6 rounded-2xl border border-primary/5 bg-card/60 backdrop-blur-sm hover:border-primary/20 hover:-translate-y-0.5 transition-all duration-300">
+                <CheckCircle className="h-6 w-6 text-primary mr-4 shrink-0 mt-0.5" />
                 <span className="text-muted-foreground text-sm md:text-base leading-relaxed">
                   <strong>{t("landing.whyUs.point2")}</strong>
                 </span>
               </div>
-              <div className="flex items-start">
-                <CheckCircle className="h-6 w-6 text-primary mr-3 shrink-0 mt-0.5" />
+              <div className="flex items-start p-6 rounded-2xl border border-primary/5 bg-card/60 backdrop-blur-sm hover:border-primary/20 hover:-translate-y-0.5 transition-all duration-300">
+                <CheckCircle className="h-6 w-6 text-primary mr-4 shrink-0 mt-0.5" />
                 <span className="text-muted-foreground text-sm md:text-base leading-relaxed">
                   <strong>{t("landing.whyUs.point3")}</strong>
                 </span>
               </div>
-              <div className="flex items-start">
-                <CheckCircle className="h-6 w-6 text-primary mr-3 shrink-0 mt-0.5" />
+              <div className="flex items-start p-6 rounded-2xl border border-primary/5 bg-card/60 backdrop-blur-sm hover:border-primary/20 hover:-translate-y-0.5 transition-all duration-300">
+                <CheckCircle className="h-6 w-6 text-primary mr-4 shrink-0 mt-0.5" />
                 <span className="text-muted-foreground text-sm md:text-base leading-relaxed">
                   <strong>{t("landing.whyUs.point4")}</strong>
                 </span>
@@ -184,12 +200,12 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer id="contact" className="py-6 border-t shrink-0 bg-background">
-        <div className="container max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <nav className="flex gap-4 sm:gap-6">
+      <footer id="contact" className="py-8 border-t border-emerald-950/20 bg-background/50 backdrop-blur-md">
+        <div className="container max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <nav className="flex gap-6">
             <Link
               href="#about"
-              className="text-xs hover:underline underline-offset-4 text-muted-foreground font-bold"
+              className="text-sm hover:text-primary transition-colors text-muted-foreground font-bold"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
@@ -199,7 +215,7 @@ export default function LandingPage() {
             </Link>
             <Link
               href="#contact"
-              className="text-xs hover:underline underline-offset-4 text-muted-foreground font-bold"
+              className="text-sm hover:text-primary transition-colors text-muted-foreground font-bold"
               onClick={(e) => {
                 e.preventDefault();
                 setContactOpen(true);
@@ -211,7 +227,7 @@ export default function LandingPage() {
           <p className="text-xs text-muted-foreground text-center">
             {t("footer.copyright")}
           </p>
-          <div className="w-6 hidden sm:block"></div> {/* Spacer to balance flexbox */}
+          <div className="w-6 hidden sm:block"></div> {/* Spacer */}
         </div>
       </footer>
 

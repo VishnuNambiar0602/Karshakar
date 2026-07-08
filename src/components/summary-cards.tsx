@@ -30,40 +30,52 @@ export function SummaryCards({ landCover }: SummaryCardsProps) {
 
   return (
     <>
-      <Card>
+      <Card className="glass-card hover:glow-border transition-all duration-300 hover:-translate-y-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('dashboard.landCover.vegetation')}</CardTitle>
-            <AreaChart className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-semibold tracking-wider text-muted-foreground uppercase">{t('dashboard.landCover.vegetation')}</CardTitle>
+            <div className="bg-emerald-500/10 p-2 rounded-xl text-emerald-500">
+              <AreaChart className="h-5 w-5" />
+            </div>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
+          <CardContent className="pt-2">
+            <div className="text-3xl font-extrabold text-foreground tracking-tight">
                 {landCover.vegetation.endArea.toFixed(2)} km²
             </div>
-            <ChangeIndicator value={landCover.vegetation.percentageChange} />
+            <div className="mt-2">
+              <ChangeIndicator value={landCover.vegetation.percentageChange} />
+            </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="glass-card hover:glow-border transition-all duration-300 hover:-translate-y-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('dashboard.landCover.water')}</CardTitle>
-            <Droplets className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-semibold tracking-wider text-muted-foreground uppercase">{t('dashboard.landCover.water')}</CardTitle>
+            <div className="bg-blue-500/10 p-2 rounded-xl text-blue-500">
+              <Droplets className="h-5 w-5" />
+            </div>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
+          <CardContent className="pt-2">
+            <div className="text-3xl font-extrabold text-foreground tracking-tight">
                 {landCover.water.endArea.toFixed(2)} km²
             </div>
-            <ChangeIndicator value={landCover.water.percentageChange} />
+            <div className="mt-2">
+              <ChangeIndicator value={landCover.water.percentageChange} />
+            </div>
           </CardContent>
         </Card>
-      <Card>
+      <Card className="glass-card hover:glow-border transition-all duration-300 hover:-translate-y-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('dashboard.landCover.builtUp')}</CardTitle>
-            <Building className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-semibold tracking-wider text-muted-foreground uppercase">{t('dashboard.landCover.builtUp')}</CardTitle>
+            <div className="bg-amber-500/10 p-2 rounded-xl text-amber-500">
+              <Building className="h-5 w-5" />
+            </div>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
+          <CardContent className="pt-2">
+            <div className="text-3xl font-extrabold text-foreground tracking-tight">
                 {landCover.builtUp.endArea.toFixed(2)} km²
             </div>
-            <ChangeIndicator value={landCover.builtUp.percentageChange} />
+            <div className="mt-2">
+              <ChangeIndicator value={landCover.builtUp.percentageChange} />
+            </div>
           </CardContent>
         </Card>
     </>

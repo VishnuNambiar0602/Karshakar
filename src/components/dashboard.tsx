@@ -264,12 +264,21 @@ export function Dashboard() {
               polling: "Analyzing environmental metrics...",
           };
           return (
-            <Card>
-                <CardContent className="pt-6">
-                    <div className="flex flex-col items-center justify-center h-48 gap-4">
-                        <Loader2 className="h-12 w-12 animate-spin text-primary" />
-                        <p className="text-muted-foreground">{messages[computationStatus]}</p>
-                        <Progress value={progress} className="w-3/4" />
+            <Card className="glass-card border border-primary/20 dark:border-primary/30 shadow-2xl bg-grid-pattern overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-premium pointer-events-none" />
+                <CardContent className="pt-8 pb-8 relative z-10">
+                    <div className="flex flex-col items-center justify-center min-h-[220px] gap-5">
+                        <div className="relative">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/25 opacity-75" />
+                            <div className="relative bg-primary/15 border border-primary/30 p-4 rounded-full text-primary">
+                                <Loader2 className="h-8 w-8 animate-spin" />
+                            </div>
+                        </div>
+                        <p className="text-lg font-bold tracking-tight text-slate-100 animate-pulse">{messages[computationStatus]}</p>
+                        <div className="w-3/4 max-w-md space-y-2">
+                            <Progress value={progress} className="h-2.5 bg-primary/10 border border-primary/10" />
+                            <p className="text-xs text-right text-muted-foreground font-mono font-semibold">{Math.round(progress)}%</p>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
@@ -278,13 +287,19 @@ export function Dashboard() {
 
       if (computationStatus === 'idle') {
           return (
-              <Card className="text-center py-16">
-                <CardHeader>
-                    <div className="mx-auto bg-primary/10 text-primary p-3 rounded-full w-fit">
-                        <Map className="h-10 w-10" />
+              <Card className="glass-card border border-primary/20 dark:border-primary/30 shadow-2xl bg-grid-pattern relative overflow-hidden py-24 text-center">
+                <div className="absolute inset-0 bg-gradient-premium pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[80px] pointer-events-none" />
+                <CardHeader className="relative z-10 max-w-xl mx-auto space-y-4">
+                    <div className="mx-auto bg-primary/10 text-primary p-4 rounded-2xl w-fit border border-primary/25 shadow-[0_0_15px_rgba(16,185,129,0.15)] animate-pulse-slow">
+                        <Map className="h-8 w-8" />
                     </div>
-                    <CardTitle>{t('dashboard.welcome.title')}</CardTitle>
-                    <CardDescription className="max-w-md mx-auto">{t('dashboard.welcome.description')}</CardDescription>
+                    <CardTitle className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-emerald-400">
+                        {t('dashboard.welcome.title')}
+                    </CardTitle>
+                    <CardDescription className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        {t('dashboard.welcome.description')}
+                    </CardDescription>
                 </CardHeader>
               </Card>
           );
@@ -292,13 +307,15 @@ export function Dashboard() {
       
        if (computationStatus === 'error') {
           return (
-              <Card className="text-center py-16 border-destructive">
-                <CardHeader>
-                    <div className="mx-auto bg-destructive/10 text-destructive p-3 rounded-full w-fit">
-                        <AlertTriangle className="h-10 w-10" />
+              <Card className="glass-card border border-destructive/25 dark:border-destructive/35 shadow-2xl relative overflow-hidden py-20 text-center bg-[radial-gradient(circle_at_center,_rgba(239,68,68,0.03)_0%,_transparent_60%)]">
+                <CardHeader className="max-w-xl mx-auto space-y-4">
+                    <div className="mx-auto bg-destructive/15 text-destructive p-4 rounded-2xl w-fit border border-destructive/30 animate-pulse">
+                        <AlertTriangle className="h-8 w-8" />
                     </div>
-                    <CardTitle>{t('dashboard.error.compute.title')}</CardTitle>
-                    <CardDescription className="max-w-md mx-auto text-destructive">
+                    <CardTitle className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
+                        {t('dashboard.error.compute.title')}
+                    </CardTitle>
+                    <CardDescription className="text-destructive font-medium border border-destructive/10 bg-destructive/5 px-4 py-2.5 rounded-xl text-sm leading-relaxed">
                         {errorState}
                     </CardDescription>
                 </CardHeader>

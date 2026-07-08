@@ -3,7 +3,7 @@
 
 import React, { useState, useMemo } from 'react';
 import {
-  Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, Label, Brush, Bar, ComposedChart
+  Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, Label, Brush, Bar, ComposedChart, Area
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -185,62 +185,75 @@ export function Visualizations({ analysisResult, groundTruthData, selectedMetric
 
   return (
     <>
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('dashboard.viz.title')}</CardTitle>
-        <CardDescription>{t('dashboard.viz.description')}</CardDescription>
+    <Card className="glass-card border border-primary/10 shadow-xl hover:glow-border transition-all duration-300">
+      <CardHeader className="pb-4 border-b border-emerald-950/15">
+        <CardTitle className="text-xl font-bold tracking-tight">{t('dashboard.viz.title')}</CardTitle>
+        <CardDescription className="text-slate-400 mt-1">{t('dashboard.viz.description')}</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         <Tabs defaultValue="time-series">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="time-series">{t('dashboard.viz.tabs.timeSeries')}</TabsTrigger>
-            <TabsTrigger value="comparison" disabled={!groundTruthData}>
+          <TabsList className="grid w-full grid-cols-2 rounded-2xl bg-primary/[0.03] border border-emerald-950/15 p-1">
+            <TabsTrigger value="time-series" className="rounded-xl font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300">{t('dashboard.viz.tabs.timeSeries')}</TabsTrigger>
+            <TabsTrigger value="comparison" disabled={!groundTruthData} className="rounded-xl font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300">
                 {t('dashboard.viz.tabs.comparison')}
                 {!groundTruthData && <span className="text-xs ml-2">({t('dashboard.viz.tabs.csvRequired')})</span>}
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="time-series" className="mt-4">
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
-                <Button onClick={handleGenerateVideo} disabled={isGeneratingVideo}>
+          <TabsContent value="time-series" className="mt-6">
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                <Button onClick={handleGenerateVideo} disabled={isGeneratingVideo} className="w-full sm:w-auto rounded-xl bg-primary hover:bg-primary/95 text-primary-foreground font-bold shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all duration-300">
                     {isGeneratingVideo ? (
-                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('dashboard.video.button.generating')}</>
+                        <><Loader2 className="mr-2 h-4 w-4 animate-spin text-primary-foreground" /> {t('dashboard.video.button.generating')}</>
                     ) : (
-                        <><Video className="mr-2 h-4 w-4" /> {t('dashboard.video.button.generate')}</>
+                        <><Video className="mr-2 h-4 w-4 text-primary-foreground" /> {t('dashboard.video.button.generate')}</>
                     )}
                 </Button>
                 <Select value={selectedMetric} onValueChange={setSelectedMetric}>
-                    <SelectTrigger className="w-full sm:w-[280px]">
+                    <SelectTrigger className="w-full sm:w-[280px] rounded-xl border-emerald-950/20 bg-background/50 focus:ring-primary/20">
                         <SelectValue placeholder={t('dashboard.viz.selectPlaceholder')} />
                     </SelectTrigger>
-                    <SelectContent>
-                        {metricNames.map(name => <SelectItem key={name} value={name}>{name}</SelectItem>)}
+                    <SelectContent className="rounded-xl bg-background/95 backdrop-blur-md border-emerald-950/20">
+                        {metricNames.map(name => <SelectItem key={name} value={name} className="hover:bg-primary/10 rounded-lg">{name}</SelectItem>)}
                     </SelectContent>
                 </Select>
             </div>
             {combinedChartData && (
-              <div className="h-[400px] w-full">
+              <div className="h-[400px] w-full border border-emerald-950/10 rounded-2xl p-4 bg-background/30 backdrop-blur-sm shadow-inner">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={combinedChartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <defs>
+                      <linearGradient id="colorPrecip" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--accent))" stopOpacity={0.4}/>
+                        <stop offset="95%" stopColor="hsl(var(--accent))" stopOpacity={0.01}/>
+                      </linearGradient>
+                      <linearGradient id="colorMetric" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.35}/>
+                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.01}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="4 4" stroke="rgba(16, 185, 129, 0.05)" />
                     <XAxis 
                         dataKey="date" 
                         tickFormatter={(str) => format(new Date(str), 'MMM yy')}
-                        minTickGap={30}
+                        minTickGap={35}
+                        stroke="hsl(var(--muted-foreground))"
+                        tick={{ fontSize: 11 }}
                     />
-                    <YAxis yAxisId="left" domain={['auto', 'auto']} tickFormatter={(val) => typeof val === 'number' ? val.toFixed(2) : val} />
-                    <YAxis yAxisId="right" orientation="right" tickFormatter={(val) => typeof val === 'number' ? val.toFixed(1) : val} />
+                    <YAxis yAxisId="left" domain={['auto', 'auto']} tickFormatter={(val) => typeof val === 'number' ? val.toFixed(2) : val} stroke="hsl(var(--muted-foreground))" tick={{ fontSize: 11 }} />
+                    <YAxis yAxisId="right" orientation="right" tickFormatter={(val) => typeof val === 'number' ? val.toFixed(1) : val} stroke="hsl(var(--muted-foreground))" tick={{ fontSize: 11 }} />
 
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
                     
-                    <Bar yAxisId="right" dataKey="precipitation" name={t('dashboard.weather.precipitation')} fill="hsl(var(--accent))" barSize={20} unit="mm" />
-                    <Line yAxisId="right" type="monotone" dataKey="temperature" name={t('dashboard.weather.temperature')} stroke="hsl(var(--destructive))" strokeWidth={2} dot={false} unit="°C" />
-                    <Line yAxisId="left" type="monotone" dataKey="value" name={selectedMetric} stroke="hsl(var(--primary))" strokeWidth={2} dot={false} connectNulls />
+                    <Bar yAxisId="right" dataKey="precipitation" name={t('dashboard.weather.precipitation')} fill="url(#colorPrecip)" barSize={16} unit="mm" radius={[4, 4, 0, 0]} />
+                    <Line yAxisId="right" type="monotone" dataKey="temperature" name={t('dashboard.weather.temperature')} stroke="hsl(var(--destructive))" strokeWidth={2.5} dot={false} unit="°C" />
+                    <Area yAxisId="left" type="monotone" dataKey="value" name={selectedMetric} fill="url(#colorMetric)" stroke="hsl(var(--primary))" strokeWidth={2.5} dot={false} connectNulls />
                     
                      <Brush 
                         dataKey="date" 
                         height={30} 
                         stroke="hsl(var(--primary))"
+                        fill="rgba(16, 185, 129, 0.03)"
                         tickFormatter={(str) => format(new Date(str), 'MMM d')}
                         startIndex={brushStartIndex}
                         endIndex={brushEndIndex}
@@ -251,23 +264,23 @@ export function Visualizations({ analysisResult, groundTruthData, selectedMetric
               </div>
             )}
           </TabsContent>
-          <TabsContent value="comparison" className="mt-4">
-            <CardDescription className="text-center mb-2">{t('dashboard.viz.comparisonDescription')}</CardDescription>
-             <div className="h-[400px] w-full">
-                 <ResponsiveContainer width="100%" height="100%">
-                    <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 20 }}>
-                        <CartesianGrid />
-                        <XAxis type="number" dataKey="ground" name={t('dashboard.viz.groundTruth')}>
-                           <Label value={t('dashboard.viz.groundTruth')} offset={-25} position="insideBottom" />
+          <TabsContent value="comparison" className="mt-6">
+            <CardDescription className="text-center mb-4 text-slate-400">{t('dashboard.viz.comparisonDescription')}</CardDescription>
+             <div className="h-[400px] w-full border border-emerald-950/10 rounded-2xl p-4 bg-background/30 backdrop-blur-sm shadow-inner">
+                  <ResponsiveContainer width="100%" height="100%">
+                     <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 20 }}>
+                        <CartesianGrid stroke="rgba(16, 185, 129, 0.08)" />
+                        <XAxis type="number" dataKey="ground" name={t('dashboard.viz.groundTruth')} stroke="hsl(var(--muted-foreground))">
+                           <Label value={t('dashboard.viz.groundTruth')} offset={-25} position="insideBottom" fill="hsl(var(--muted-foreground))" />
                         </XAxis>
-                        <YAxis type="number" dataKey="satellite" name={t('dashboard.viz.satelliteValue')}>
-                             <Label value={t('dashboard.viz.satelliteValue')} angle={-90} offset={-10} position="insideLeft" style={{ textAnchor: 'middle' }} />
+                        <YAxis type="number" dataKey="satellite" name={t('dashboard.viz.satelliteValue')} stroke="hsl(var(--muted-foreground))">
+                             <Label value={t('dashboard.viz.satelliteValue')} angle={-90} offset={-10} position="insideLeft" style={{ textAnchor: 'middle' }} fill="hsl(var(--muted-foreground))" />
                         </YAxis>
                         <Tooltip cursor={{ strokeDasharray: '3 3' }} />
                         <Legend verticalAlign="top" height={36}/>
                         <Scatter name={t('dashboard.viz.comparisonLegend')} data={comparisonData} fill="hsl(var(--primary))" />
-                    </ScatterChart>
-                 </ResponsiveContainer>
+                     </ScatterChart>
+                  </ResponsiveContainer>
             </div>
           </TabsContent>
         </Tabs>
@@ -275,14 +288,14 @@ export function Visualizations({ analysisResult, groundTruthData, selectedMetric
     </Card>
 
     <Dialog open={!!videoUrl} onOpenChange={(open) => !open && setVideoUrl(null)}>
-        <DialogContent className="max-w-4xl">
+        <DialogContent className="max-w-4xl rounded-2xl bg-background/95 backdrop-blur-xl border border-emerald-950/20 shadow-2xl">
             <DialogHeader>
-            <DialogTitle>{t('dashboard.video.modal.title', {metric: selectedMetric})}</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-xl font-bold tracking-tight">{t('dashboard.video.modal.title', {metric: selectedMetric})}</DialogTitle>
+            <DialogDescription className="text-slate-400">
                 {t('dashboard.video.modal.description', {location: locationDescription})}
             </DialogDescription>
             </DialogHeader>
-            <div className="aspect-video w-full bg-black rounded-md overflow-hidden">
+            <div className="aspect-video w-full bg-black rounded-xl overflow-hidden border border-emerald-950/20 shadow-inner">
                 {videoUrl && (
                     <video controls autoPlay src={videoUrl} className="w-full h-full" />
                 )}

@@ -87,51 +87,64 @@ export function InputPanel({
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('dashboard.input.title')}</CardTitle>
-        <CardDescription>
-          {t('dashboard.input.description')}
-        </CardDescription>
+    <Card className="glass-card border border-primary/15 dark:border-primary/25 shadow-xl hover:glow-border transition-all duration-300 bg-grid-pattern">
+      <CardHeader className="pb-4 border-b border-primary/10">
+        <div className="flex items-center gap-3">
+          <div className="bg-primary/10 p-2.5 rounded-xl border border-primary/25 text-primary">
+            <Wheat className="h-5 w-5" />
+          </div>
+          <div>
+            <CardTitle className="text-xl font-bold tracking-tight">{t('dashboard.input.title')}</CardTitle>
+            <CardDescription className="text-slate-400 mt-0.5">
+              {t('dashboard.input.description')}
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 pt-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
            <div className="space-y-2 col-span-1 md:col-span-2">
-            <Label htmlFor="location-desc">{t('dashboard.input.locationDesc')}</Label>
-            <div className="flex gap-2">
-              <Input
-                id="location-desc"
-                placeholder={t('dashboard.input.locationDescPlaceholder')}
-                value={locationDesc}
-                onChange={(e) => setLocationDesc(e.target.value)}
-                disabled={isSuggesting}
-              />
-              <Button onClick={handleSuggestCoordinates} disabled={isSuggesting || !locationDesc} size="icon">
-                {isSuggesting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
-                <span className="sr-only">{t('predict.suggestCoordinates')}</span>
-              </Button>
-            </div>
-          </div>
+             <Label htmlFor="location-desc" className="text-sm font-semibold text-slate-300">{t('dashboard.input.locationDesc')}</Label>
+             <div className="flex gap-2">
+               <Input
+                 id="location-desc"
+                 placeholder={t('dashboard.input.locationDescPlaceholder')}
+                 value={locationDesc}
+                 onChange={(e) => setLocationDesc(e.target.value)}
+                 disabled={isSuggesting}
+                 className="rounded-xl border-emerald-950/20 bg-background/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300"
+               />
+               <Button 
+                 onClick={handleSuggestCoordinates} 
+                 disabled={isSuggesting || !locationDesc} 
+                 size="icon" 
+                 className="rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:scale-105 active:scale-95 transition-all duration-200 shrink-0"
+               >
+                 {isSuggesting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
+                 <span className="sr-only">{t('predict.suggestCoordinates')}</span>
+               </Button>
+             </div>
+           </div>
+           <div className="space-y-2">
+             <Label htmlFor="latitude" className="text-sm font-semibold text-slate-300">{t('predict.latitude')}</Label>
+             <Input id="latitude" placeholder="e.g., 40.7128" value={lat} onChange={(e) => setLat(e.target.value)} className="rounded-xl border-emerald-950/20 bg-background/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300" />
+           </div>
+           <div className="space-y-2">
+             <Label htmlFor="longitude" className="text-sm font-semibold text-slate-300">{t('predict.longitude')}</Label>
+             <Input id="longitude" placeholder="e.g., -74.0060" value={lon} onChange={(e) => setLon(e.target.value)} className="rounded-xl border-emerald-950/20 bg-background/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300" />
+           </div>
           <div className="space-y-2">
-            <Label htmlFor="latitude">{t('predict.latitude')}</Label>
-            <Input id="latitude" placeholder="e.g., 40.7128" value={lat} onChange={(e) => setLat(e.target.value)} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="longitude">{t('predict.longitude')}</Label>
-            <Input id="longitude" placeholder="e.g., -74.0060" value={lon} onChange={(e) => setLon(e.target.value)} />
-          </div>
-          <div className="space-y-2">
-            <Label>{t('dashboard.input.dateRange')}</Label>
+            <Label className="text-sm font-semibold text-slate-300">{t('dashboard.input.dateRange')}</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "w-full justify-start text-left font-normal",
+                    "w-full justify-start text-left font-normal rounded-xl border-emerald-950/20 bg-background/50 focus:ring-primary/20 transition-all duration-300",
                     !dateRange && "text-muted-foreground"
                   )}
                 >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
                   {dateRange?.from ? (
                     dateRange.to ? (
                       <>
@@ -146,7 +159,7 @@ export function InputPanel({
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-auto p-0 rounded-2xl bg-background/95 backdrop-blur-xl border border-emerald-950/20 shadow-2xl" align="start">
                 <Calendar
                   mode="range"
                   defaultMonth={dateRange?.from}
@@ -154,33 +167,34 @@ export function InputPanel({
                   onSelect={setDateRange}
                   numberOfMonths={2}
                   initialFocus
+                  className="rounded-2xl"
                 />
               </PopoverContent>
             </Popover>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="csv-upload">{t('dashboard.input.groundTruth')}</Label>
-            <Button asChild variant="outline" className="w-full justify-start text-left font-normal">
-                <Label htmlFor="csv-upload" className="w-full cursor-pointer">
-                    <Upload className="mr-2 h-4 w-4" />
-                    <span className="truncate">{fileName || t('dashboard.input.uploadFile')}</span>
+            <Label htmlFor="csv-upload" className="text-sm font-semibold text-slate-300">{t('dashboard.input.groundTruth')}</Label>
+            <Button asChild variant="outline" className="w-full justify-start text-left font-normal rounded-xl border-emerald-950/20 bg-background/50 hover:bg-primary/5 transition-all duration-300">
+                <Label htmlFor="csv-upload" className="w-full cursor-pointer flex items-center">
+                    <Upload className="mr-2 h-4 w-4 text-primary" />
+                    <span className="truncate text-slate-200">{fileName || t('dashboard.input.uploadFile')}</span>
                 </Label>
             </Button>
             <Input id="csv-upload" type="file" accept=".csv" className="sr-only" onChange={handleFileChange} />
           </div>
         </div>
-         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-primary/10">
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" disabled={history.length === 0} className="w-full sm:w-auto">
-                  <History className="mr-2 h-4 w-4" /> {t('dashboard.history.button')}
+                <Button variant="outline" disabled={history.length === 0} className="w-full sm:w-auto rounded-xl border-emerald-950/20 hover:bg-primary/5 hover:text-primary transition-all duration-200">
+                  <History className="mr-2 h-4 w-4 text-primary" /> {t('dashboard.history.button')}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-80">
+              <PopoverContent className="w-80 rounded-2xl bg-background/95 backdrop-blur-xl border-emerald-950/20 shadow-2xl">
                 <div className="grid gap-4">
                   <div className="space-y-2">
-                    <h4 className="font-medium leading-none">{t('dashboard.history.title')}</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <h4 className="font-bold leading-none">{t('dashboard.history.title')}</h4>
+                    <p className="text-sm text-slate-400">
                       {t('dashboard.history.description')}
                     </p>
                   </div>
@@ -191,31 +205,31 @@ export function InputPanel({
                            <div
                              key={entry.id}
                              onClick={() => onHistorySelect(entry)}
-                             className="text-sm p-2 hover:bg-muted rounded-md cursor-pointer"
+                             className="text-sm p-3 hover:bg-primary/10 rounded-xl cursor-pointer transition-colors duration-200 border border-transparent hover:border-primary/10"
                            >
-                            <p className="font-semibold truncate">{entry.locationDesc || `${entry.lat}, ${entry.lon}`}</p>
-                             <p className="text-xs text-muted-foreground">
+                            <p className="font-bold truncate text-foreground">{entry.locationDesc || `${entry.lat}, ${entry.lon}`}</p>
+                             <p className="text-xs text-slate-400 mt-1">
                                {format(entry.timestamp, "PPP p")}
                              </p>
                            </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-sm text-muted-foreground text-center py-4">{t('dashboard.history.empty')}</p>
+                      <p className="text-sm text-slate-400 text-center py-4">{t('dashboard.history.empty')}</p>
                     )}
                   </ScrollArea>
                 </div>
               </PopoverContent>
             </Popover>
 
-            <div className="flex gap-2 w-full sm:w-auto">
-                <Button variant="secondary" asChild className="flex-1 sm:flex-initial">
+            <div className="flex gap-2.5 w-full sm:w-auto">
+                <Button variant="secondary" asChild className="flex-1 sm:flex-initial rounded-xl border border-emerald-500/10 bg-slate-900/40 hover:bg-slate-900/80 text-white font-semibold transition-all duration-200">
                     <Link href={`/crop-advisor?lat=${lat}&lon=${lon}`}>
-                        <Wheat className="mr-2 h-4 w-4" />
+                        <Wheat className="mr-2 h-4 w-4 text-primary animate-pulse" />
                         {t('dashboard.input.cropAdvisor')}
                     </Link>
                 </Button>
-                <Button onClick={onCompute} disabled={isComputing} className="flex-1 sm:flex-initial">
+                <Button onClick={onCompute} disabled={isComputing} className="flex-1 sm:flex-initial rounded-xl bg-primary hover:bg-primary/95 text-primary-foreground font-bold shadow-md hover:scale-105 active:scale-95 transition-all duration-200">
                 {isComputing ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (

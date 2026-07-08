@@ -380,14 +380,23 @@ export function KisanGlobe3D({ plots = [], selectedPlotId, onSelectPlot }: Kisan
   }, [plots, selectedPlotId, hoverText, onSelectPlot]);
 
   return (
-    <div className="relative w-full h-[320px] md:h-[400px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-950/20 to-blue-950/25 border border-primary/10 rounded-2xl backdrop-blur-md shadow-2xl">
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing" />
-      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-primary bg-black/40 px-3 py-1.5 rounded-lg border border-primary/20 backdrop-blur-sm z-10">
-        <span className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
+    <div className="relative w-full h-[340px] md:h-[420px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-950/20 via-slate-950/40 to-blue-950/25 border border-primary/20 dark:border-primary/30 rounded-2xl backdrop-blur-md shadow-2xl transition-all duration-350 hover:border-primary/45 group">
+      {/* Radial background ambient blob */}
+      <div className="absolute inset-0 bg-gradient-premium pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
+      
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing transition-transform duration-300" />
+      
+      {/* Floating HUD Panel */}
+      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-primary bg-black/60 px-4 py-2.5 rounded-xl border border-primary/25 backdrop-blur-md z-10 shadow-lg transition-premium">
+        <span className="flex items-center gap-2 font-bold tracking-wider">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
           3D SATELLITE PLOT TRACKER
         </span>
-        <span className="truncate max-w-[200px] md:max-w-none text-blue-400">{hoverText}</span>
+        <span className="truncate max-w-[200px] md:max-w-none text-emerald-400 font-semibold drop-shadow-md">{hoverText}</span>
       </div>
     </div>
   );

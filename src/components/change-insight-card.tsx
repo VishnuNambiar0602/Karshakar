@@ -24,22 +24,22 @@ export function ChangeInsightCard({ changeAnalysis }: ChangeInsightCardProps) {
 
   switch (classification) {
     case "Normal":
-      variantStyles = "bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800";
+      variantStyles = "border-l-green-500 bg-green-500/[0.03] text-green-700 dark:text-green-300";
       Icon = CheckCircle;
-      badgeVariant = "secondary"; // Often greenish or neutral
+      badgeVariant = "secondary";
       break;
     case "Transitional":
-      variantStyles = "bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800";
+      variantStyles = "border-l-yellow-500 bg-yellow-500/[0.03] text-yellow-700 dark:text-yellow-300";
       Icon = Activity;
       badgeVariant = "outline";
       break;
     case "Concerning":
-      variantStyles = "bg-orange-50 border-orange-200 dark:bg-orange-900/20 dark:border-orange-800";
+      variantStyles = "border-l-orange-500 bg-orange-500/[0.03] text-orange-700 dark:text-orange-300";
       Icon = AlertTriangle;
-      badgeVariant = "destructive"; // Orange/Red usually
+      badgeVariant = "destructive";
       break;
     case "Critical":
-      variantStyles = "bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800";
+      variantStyles = "border-l-red-500 bg-red-500/[0.03] text-red-700 dark:text-red-300";
       Icon = AlertOctagon;
       badgeVariant = "destructive";
       break;
@@ -49,39 +49,39 @@ export function ChangeInsightCard({ changeAnalysis }: ChangeInsightCardProps) {
   const confidencePercent = Math.round(confidenceScore * 100);
 
   return (
-    <Card className={`mb-6 border-l-4 ${variantStyles}`}>
+    <Card className={`mb-6 border-l-4 glass-card hover:glow-border transition-all duration-300 ${variantStyles}`}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icon className="h-6 w-6" />
-            <CardTitle>{t('dashboard.insight.title')}</CardTitle>
+          <div className="flex items-center gap-2.5">
+            <Icon className="h-5 w-5 text-primary" />
+            <CardTitle className="text-lg font-bold tracking-tight">{t('dashboard.insight.title')}</CardTitle>
           </div>
-          <Badge variant={badgeVariant} className="text-base px-3 py-1">
+          <Badge variant={badgeVariant} className="text-xs px-3 py-1 font-bold rounded-full">
             {t(`dashboard.insight.classification.${classification}`)}
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-5 pt-2">
         <div>
-          <p className="text-lg leading-relaxed">{explanation}</p>
+          <p className="text-base leading-relaxed text-slate-300">{explanation}</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="p-4 rounded-lg bg-background/50 border">
-            <h4 className="font-semibold mb-1 text-sm text-muted-foreground uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-background/30 border border-emerald-950/15">
+            <h4 className="font-bold mb-1 text-xs text-slate-400 uppercase tracking-wider">
               {t('dashboard.insight.action')}
             </h4>
-            <p className="font-medium text-primary">{recommendedAction}</p>
+            <p className="font-semibold text-primary">{recommendedAction}</p>
           </div>
 
-          <div className="flex flex-col justify-center p-4 rounded-lg bg-background/50 border">
+          <div className="flex flex-col justify-center p-4 rounded-xl bg-background/30 border border-emerald-950/15">
             <div className="flex justify-between mb-2">
-              <span className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+              <span className="font-bold text-xs text-slate-400 uppercase tracking-wider">
                 {t('dashboard.insight.confidence')}
               </span>
-              <span className="font-bold">{confidencePercent}%</span>
+              <span className="font-extrabold text-foreground">{confidencePercent}%</span>
             </div>
-            <Progress value={confidencePercent} className="h-2" />
+            <Progress value={confidencePercent} className="h-2 bg-emerald-950/30" />
           </div>
         </div>
       </CardContent>

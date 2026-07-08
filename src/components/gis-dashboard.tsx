@@ -145,16 +145,21 @@ export function GISDashboard({ analysisResult, locationLabel }: GISDashboardProp
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>GIS Explorer</CardTitle>
-        <CardDescription>
+    <Card className="glass-card border border-primary/10 shadow-xl hover:glow-border transition-all duration-300">
+      <CardHeader className="pb-4 border-b border-emerald-950/15">
+        <CardTitle className="text-xl font-bold tracking-tight">GIS Explorer</CardTitle>
+        <CardDescription className="text-slate-400 mt-1">
           Region-level spatial comparison with segmentation overlays, temporal inspection, anomaly heatmap, and exports.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 pt-6">
         <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Overlay layers">
-          <Button variant={overlayLayer === 'base' ? 'default' : 'outline'} onClick={() => setOverlayLayer('base')} aria-pressed={overlayLayer === 'base'}>
+          <Button 
+            variant={overlayLayer === 'base' ? 'default' : 'outline'} 
+            onClick={() => setOverlayLayer('base')} 
+            aria-pressed={overlayLayer === 'base'}
+            className="rounded-xl font-semibold"
+          >
             Base
           </Button>
           <Button
@@ -162,19 +167,25 @@ export function GISDashboard({ analysisResult, locationLabel }: GISDashboardProp
             onClick={() => setOverlayLayer('segmentation')}
             aria-pressed={overlayLayer === 'segmentation'}
             disabled={!segmentationOverlay}
+            className="rounded-xl font-semibold"
           >
             Segmentation
           </Button>
-          <Button variant={overlayLayer === 'anomaly' ? 'default' : 'outline'} onClick={() => setOverlayLayer('anomaly')} aria-pressed={overlayLayer === 'anomaly'}>
+          <Button 
+            variant={overlayLayer === 'anomaly' ? 'default' : 'outline'} 
+            onClick={() => setOverlayLayer('anomaly')} 
+            aria-pressed={overlayLayer === 'anomaly'}
+            className="rounded-xl font-semibold"
+          >
             Change Heatmap
           </Button>
-          {segmentation && <Badge variant="secondary">Mean confidence: {(segmentation.meanConfidence * 100).toFixed(1)}%</Badge>}
+          {segmentation && <Badge variant="secondary" className="rounded-full px-3 py-1 font-bold">Mean confidence: {(segmentation.meanConfidence * 100).toFixed(1)}%</Badge>}
         </div>
 
-        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-          <div className="space-y-3">
-            <div className="text-sm font-medium">Before/After Compare</div>
-            <div className="relative aspect-video overflow-hidden rounded-lg border" aria-label="Before and after map comparison">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <div className="space-y-4">
+            <div className="text-sm font-bold text-slate-300 uppercase tracking-wider">Before/After Compare</div>
+            <div className="relative aspect-video overflow-hidden rounded-2xl border border-primary/10 shadow-inner group" aria-label="Before and after map comparison">
               <ImageWithLoader src={analysisResult.landCover.beforeMapUrl} alt="Baseline land cover map" />
               <div
                 className="absolute inset-y-0 right-0 overflow-hidden"
@@ -192,11 +203,11 @@ export function GISDashboard({ analysisResult, locationLabel }: GISDashboardProp
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-red-600/20 via-amber-300/20 to-transparent" />
               )}
               <div className="absolute inset-y-0" style={{ left: `${comparePosition}%` }} aria-hidden="true">
-                <div className="h-full w-0.5 bg-white/80" />
+                <div className="h-full w-0.5 bg-white/90 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
               </div>
             </div>
             <div className="space-y-2">
-              <label htmlFor="compare-slider" className="text-sm">Comparison slider: {comparePosition}%</label>
+              <label htmlFor="compare-slider" className="text-sm font-semibold text-slate-300">Comparison slider: {comparePosition}%</label>
               <input
                 id="compare-slider"
                 type="range"
@@ -204,16 +215,16 @@ export function GISDashboard({ analysisResult, locationLabel }: GISDashboardProp
                 max={100}
                 value={comparePosition}
                 onChange={(event) => setComparePosition(Number(event.target.value))}
-                className="w-full"
+                className="w-full accent-primary h-1.5 rounded-lg bg-emerald-950/20 appearance-none cursor-pointer"
                 aria-label="Before and after comparison slider"
               />
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <div className="text-sm font-medium">Temporal Change Inspector</div>
-              <Badge variant="outline">{selectedDate ? new Date(selectedDate).toLocaleDateString() : 'No date'}</Badge>
+              <div className="text-sm font-bold text-slate-300 uppercase tracking-wider">Temporal Change Inspector</div>
+              <Badge variant="outline" className="font-mono">{selectedDate ? new Date(selectedDate).toLocaleDateString() : 'No date'}</Badge>
             </div>
             <Slider
               value={[temporalIndex]}
@@ -222,27 +233,28 @@ export function GISDashboard({ analysisResult, locationLabel }: GISDashboardProp
               step={1}
               onValueChange={(value) => setTemporalIndex(value[0] ?? 0)}
               aria-label="Temporal slider"
+              className="py-2"
             />
-            <div className="grid grid-cols-2 gap-1 rounded-md border p-2 sm:grid-cols-4" role="img" aria-label="Anomaly heatmap grid">
+            <div className="grid grid-cols-4 gap-1.5 rounded-2xl border border-emerald-950/15 p-3 bg-background/50 sm:grid-cols-8" role="img" aria-label="Anomaly heatmap grid">
               {anomalyGrid.map((value, index) => (
                 <div
                   key={`cell-${index}`}
-                  className="aspect-square rounded-sm"
-                  style={{ backgroundColor: `rgba(239, 68, 68, ${value})` }}
+                  className="aspect-square rounded-lg transition-all duration-300 hover:scale-110 cursor-pointer shadow-sm hover:shadow-[0_0_8px_rgba(239,68,68,0.4)]"
+                  style={{ backgroundColor: `rgba(239, 68, 68, ${0.1 + value * 0.9})` }}
                   title={`Anomaly intensity ${(value * 100).toFixed(1)}%`}
                 />
               ))}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-slate-400 leading-relaxed">
               Heatmap intensity combines temporal index and aggregate land-cover change magnitude to highlight potential anomaly clusters.
             </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          <Button variant="outline" onClick={handleExportCsv} aria-label="Export GIS summary as CSV">Export CSV</Button>
-          <Button variant="outline" onClick={handleExportGeoJson} aria-label="Export geospatial artifact as GeoJSON">Export GeoJSON</Button>
-          <Button variant="outline" onClick={handleExportRasterSummary} aria-label="Export raster summary JSON">Export Raster Summary</Button>
+        <div className="flex flex-wrap gap-2.5 pt-4 border-t border-emerald-950/15">
+          <Button variant="outline" onClick={handleExportCsv} aria-label="Export GIS summary as CSV" className="rounded-xl border-emerald-950/20 hover:bg-primary/5 hover:text-primary transition-all duration-200">Export CSV</Button>
+          <Button variant="outline" onClick={handleExportGeoJson} aria-label="Export geospatial artifact as GeoJSON" className="rounded-xl border-emerald-950/20 hover:bg-primary/5 hover:text-primary transition-all duration-200">Export GeoJSON</Button>
+          <Button variant="outline" onClick={handleExportRasterSummary} aria-label="Export raster summary JSON" className="rounded-xl border-emerald-950/20 hover:bg-primary/5 hover:text-primary transition-all duration-200">Export Raster Summary</Button>
         </div>
       </CardContent>
     </Card>
