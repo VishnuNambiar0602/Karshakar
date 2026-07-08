@@ -417,6 +417,32 @@ export async function getNotificationLogsAction() {
 
 const OTP_STORE = new Map<string, { code: string; expires: number }>();
 
+export async function devBypassLoginAction() {
+    try {
+        const devUserId = 'dev-user-001';
+        const cookieStore = await cookies();
+        cookieStore.set('kisan_alert_user_id', devUserId, {
+            path: '/',
+            maxAge: 30 * 24 * 60 * 60,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+        });
+        cookieStore.set('kisan_alert_user_role', 'viewer', {
+            path: '/',
+            maxAge: 30 * 24 * 60 * 60,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+        });
+
+        const profile = await getFarmerProfile(devUserId);
+        return { data: { success: true, hasProfile: profile !== null }, error: null };
+    } catch (error) {
+        return { data: null, error: getErrorMessage(error) };
+    }
+}
+
 export async function sendOtpAction(phone: string) {
     try {
         if (!phone || !phone.startsWith('+')) {

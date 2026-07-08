@@ -8,8 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { sendOtpAction, verifyOtpAction } from '@/lib/actions';
-import { ShieldAlert, Loader2, Phone, UserPlus, ArrowRight } from 'lucide-react';
+import { sendOtpAction, verifyOtpAction, devBypassLoginAction } from '@/lib/actions';
+import { ShieldAlert, Loader2, Phone, UserPlus, ArrowRight, Zap } from 'lucide-react';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -22,6 +22,23 @@ export default function RegisterPage() {
   const [sending, setSending] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [sandboxMode, setSandboxMode] = useState(false);
+  const [devBypassing, setDevBypassing] = useState(false);
+
+  const handleDevBypass = async () => {
+    setDevBypassing(true);
+    const res = await devBypassLoginAction();
+    setDevBypassing(false);
+    if (res.error) {
+      toast({ title: 'Bypass Failed', description: res.error, variant: 'destructive' });
+    } else {
+      toast({ title: 'Logged In (Dev)', description: 'Skipping OTP for testing...' });
+      if (res.data?.hasProfile) {
+        router.push('/dashboard');
+      } else {
+        router.push('/onboarding');
+      }
+    }
+  };
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -178,6 +195,23 @@ export default function RegisterPage() {
             <Link href="/login" className="text-primary font-semibold hover:underline">
               Login here
             </Link>
+          </div>
+
+          <div className="mt-4 pt-4 border-t border-border">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleDevBypass}
+              disabled={devBypassing}
+              className="w-full border-dashed border-amber-500/50 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10"
+            >
+              {devBypassing ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Zap className="mr-2 h-4 w-4" />
+              )}
+              Quick Login (Dev - Skip OTP)
+            </Button>
           </div>
         </CardContent>
       </Card>
