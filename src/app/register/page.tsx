@@ -2,22 +2,23 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { sendOtpAction, verifyOtpAction, checkSessionAction } from '@/lib/actions';
-import { ShieldAlert, Loader2, Phone, KeyRound, ArrowRight } from 'lucide-react';
+import { sendOtpAction, verifyOtpAction } from '@/lib/actions';
+import { ShieldAlert, Loader2, Phone, UserPlus, ArrowRight } from 'lucide-react';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
   const { toast } = useToast();
 
   const [step, setStep] = useState<'phone' | 'otp'>('phone');
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState('');
-  
+
   const [sending, setSending] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [sandboxMode, setSandboxMode] = useState(false);
@@ -64,15 +65,10 @@ export default function LoginPage() {
       });
     } else {
       toast({
-        title: 'Verified Successfully',
-        description: 'Redirecting...',
+        title: 'Account Created',
+        description: 'Redirecting to complete your profile...',
       });
-      const session = await checkSessionAction();
-      if (session.data?.hasProfile) {
-        router.push('/dashboard');
-      } else {
-        router.push('/onboarding');
-      }
+      router.push('/onboarding');
     }
   };
 
@@ -81,11 +77,11 @@ export default function LoginPage() {
       <Card className="max-w-md w-full border-primary/10 shadow-2xl backdrop-blur-md bg-card/95">
         <CardHeader className="text-center">
           <div className="mx-auto bg-primary/10 text-primary p-3 rounded-full w-fit mb-3">
-            <KeyRound className="h-8 w-8" />
+            <UserPlus className="h-8 w-8" />
           </div>
-          <CardTitle className="text-2xl font-black tracking-tight">Kisan Portal Login</CardTitle>
+          <CardTitle className="text-2xl font-black tracking-tight">Create Your Account</CardTitle>
           <CardDescription>
-            Verify your identity with secure OTP verification to access land plots and alerts.
+            Register with your phone number to start receiving real-time soil, satellite, and weather advisories.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -119,7 +115,7 @@ export default function LoginPage() {
                   </>
                 ) : (
                   <>
-                    Send OTP Verification <ArrowRight className="h-4 w-4 ml-1.5" />
+                    Send Verification Code <ArrowRight className="h-4 w-4 ml-1.5" />
                   </>
                 )}
               </Button>
@@ -170,12 +166,19 @@ export default function LoginPage() {
                       Verifying...
                     </>
                   ) : (
-                    'Verify & Log In'
+                    'Create Account'
                   )}
                 </Button>
               </div>
             </form>
           )}
+
+          <div className="mt-6 text-center text-sm text-muted-foreground">
+            Already have an account?{' '}
+            <Link href="/login" className="text-primary font-semibold hover:underline">
+              Login here
+            </Link>
+          </div>
         </CardContent>
       </Card>
     </div>

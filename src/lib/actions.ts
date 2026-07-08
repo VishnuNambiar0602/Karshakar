@@ -27,7 +27,7 @@ import { redactSensitive, sanitizePromptPayload } from '@/lib/security';
 import { getAuthContext, requireRole } from '@/lib/auth';
 import { createRequestId, withTraceContext } from '@/lib/trace';
 import { appendUserHistory, getUserPreferences, listUserHistory, saveUserPreferences, type UserPreferences } from '@/lib/user-store';
-import { getFarmerProfile, saveFarmerProfile, getPlots, addPlot, deletePlot, getAlerts, resolveAlert, getNotificationLogs, getAllProfiles, getAllAlerts, getAllNotificationLogs, getAllPlots } from '@/lib/kisan-store';
+import { getFarmerProfile, saveFarmerProfile, updateFarmerProfile, getPlots, addPlot, deletePlot, getAlerts, resolveAlert, getNotificationLogs, getAllProfiles, getAllAlerts, getAllNotificationLogs, getAllPlots } from '@/lib/kisan-store';
 import { runAlertChecksForAllPlots } from '@/lib/alert-engine';
 import { detectPestDisease } from '@/ai/flows/detect-pest-disease';
 import { getMandiPrices } from '@/services/mandi';
@@ -312,6 +312,19 @@ export async function saveFarmerProfileAction(profile: { name: string; phone: st
     }
 }
 
+export async function updateFarmerProfileAction(profile: { name: string; phone: string; state: string; district: string; preferredLanguage: string }) {
+    try {
+        const auth = await getAuthContext();
+        const data = await updateFarmerProfile(auth.userId, profile);
+        if (!data) {
+            return { data: null, error: 'No profile found. Please complete onboarding first.' };
+        }
+        return { data, error: null };
+    } catch (error) {
+        return { data: null, error: getErrorMessage(error) };
+    }
+}
+
 export async function getPlotsAction() {
     try {
         const auth = await getAuthContext();
@@ -550,6 +563,25 @@ export async function getAdminMetricsAction() {
         };
     } catch (error) {
         return { data: null, error: getErrorMessage(error) };
+    }
+}
+
+export async function checkSessionAction() {
+    try {
+        const auth = await getAuthContext();
+        if (auth.userId === 'anonymous') {
+            return { data: { isLoggedIn: false, hasProfile: false }, error: null };
+        }
+        const profile = await getFarmerProfile(auth.userId);
+        return { 
+            data: { 
+                isLoggedIn: true, 
+                hasProfile: profile !== null 
+            }, 
+            error: null 
+        };
+    } catch {
+        return { data: { isLoggedIn: false, hasProfile: false }, error: null };
     }
 }
 

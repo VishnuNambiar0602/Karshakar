@@ -35,7 +35,7 @@ export default function OnboardingPage() {
           title: 'Already Registered',
           description: 'Redirecting to your dashboard...',
         });
-        router.push('/');
+        router.push('/dashboard');
       } else {
         setChecking(false);
       }
@@ -60,7 +60,7 @@ export default function OnboardingPage() {
         title: 'Registration Successful',
         description: `Welcome to Kisan Alert, ${form.name}!`,
       });
-      router.push('/');
+      router.push('/dashboard');
     }
   };
 

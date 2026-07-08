@@ -16,7 +16,6 @@ import {
   Download,
   CheckCircle,
   ArrowRight,
-  BrainCircuit,
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -48,19 +47,19 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
               <Button
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push("/login")}
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-black h-12 px-8 rounded-xl hover:scale-105 transition-transform duration-300 shadow-lg flex items-center gap-2"
               >
-                {t("landing.hero.getStarted")} <ArrowRight className="h-5 w-5" />
+                {t("landing.hero.login") || "Login"} <ArrowRight className="h-5 w-5" />
               </Button>
               <Button
-                onClick={() => router.push("/predict")}
+                onClick={() => router.push("/register")}
                 variant="secondary"
                 size="lg"
                 className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-black h-12 px-8 rounded-xl hover:scale-105 transition-transform duration-300 shadow-lg flex items-center gap-2"
               >
-                {t("landing.hero.predictiveTools")} <BrainCircuit className="h-5 w-5" />
+                {t("landing.hero.register") || "Create Account"} <ArrowRight className="h-5 w-5" />
               </Button>
             </div>
           </div>

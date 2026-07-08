@@ -136,6 +136,29 @@ export async function saveFarmerProfile(userId: string, profile: Omit<FarmerProf
   return completeProfile;
 }
 
+export async function updateFarmerProfile(userId: string, updates: Partial<Omit<FarmerProfile, 'userId' | 'createdAt'>>): Promise<FarmerProfile | null> {
+  const existing = await getFarmerProfile(userId);
+  if (!existing) return null;
+
+  const updated: FarmerProfile = { ...existing, ...updates };
+
+  if (isFirestoreEnabled()) {
+    try {
+      const db = getFirestore();
+      await db.collection('farmer_profiles').doc(userId).set(updated, { merge: true });
+      return updated;
+    } catch (e) {
+      logger.error('firestore_update_profile_failed', { userId, error: String(e) });
+    }
+  }
+
+  // Fallback
+  const db = initFallbackDb();
+  db.profiles[userId] = updated;
+  saveFallbackDb(db);
+  return updated;
+}
+
 export async function getPlots(userId: string): Promise<Plot[]> {
   if (isFirestoreEnabled()) {
     try {
